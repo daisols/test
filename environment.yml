@@ -1,0 +1,26 @@
+name: FieldMoist
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - django=5.2
+  - djangorestframework=3.16
+  - django-cors-headers
+  - python-dotenv
+  - pymysql
+  - earthengine-api
+  - geopandas=1.1
+  - gdal
+  - joblib
+  - matplotlib
+  - numpy
+  - pandas
+  - pillow
+  - rasterio=1.4
+  - requests
+  - scikit-learn
+  - scipy
+  - shapely
+  - tifffile
+  - tqdm
+  - openpyxl
