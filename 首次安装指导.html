@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FieldMoist 首次安装指导</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#20252b;font-family:"Microsoft YaHei","Segoe UI",sans-serif;font-size:16px;line-height:1.85;letter-spacing:0}header{background:#193d31;color:white;padding:18px 28px;border-bottom:4px solid #b64646}header strong{font-size:24px}header p{margin:4px 0 0;font-size:14px}.layout{display:grid;grid-template-columns:270px minmax(0,970px);max-width:1320px;margin:auto}nav{padding:26px 20px;border-right:1px solid #ddd;position:sticky;top:0;max-height:100vh;overflow:auto;align-self:start;font-size:14px}nav a{display:block;padding:5px 0;text-decoration:none;color:#265747}main{padding:30px 40px;min-width:0}h1{font-size:30px;line-height:1.4}h2{font-size:23px;margin-top:48px;border-bottom:2px solid #a5bcb2;padding-bottom:12px;scroll-margin-top:20px}h3{font-size:19px;margin-top:28px;scroll-margin-top:20px}a{color:#155b83;overflow-wrap:anywhere}p,li,td,th{overflow-wrap:anywhere}li{margin:5px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f5f7;border-left:4px solid #56788b;padding:16px;font-size:14px;line-height:1.6}code{font-family:Consolas,"Microsoft YaHei",monospace;font-size:0.93em}p code,li code,td code{background:#f1f3f4;padding:1px 3px}table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;margin:20px 0}th{background:#e9f0ed;text-align:left}td,th{border:1px solid #cad2cf;padding:10px;vertical-align:top}strong{font-weight:700}.note{border-bottom:1px solid #ddd;padding-bottom:16px;color:#4b555c;font-size:14px}input[type=checkbox]{width:16px;height:16px}footer{padding:24px 40px;border-top:1px solid #ddd;color:#555}@media(max-width:850px){.layout{display:block}nav{position:static;max-height:280px;border-right:0;border-bottom:1px solid #ddd}main{padding:20px}h1{font-size:26px}header{padding:16px 20px}table{font-size:13px}td,th{padding:7px}}@media print{header,nav,.note,footer{display:none}.layout{display:block}main{padding:0;max-width:none}body{font-size:11pt;line-height:1.65}h1{font-size:22pt}h2{font-size:16pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}pre{font-size:9pt}table{font-size:9pt}tr{break-inside:avoid}a{color:inherit}h2{margin-top:22px}p{orphans:3;widows:3}}</style></head><body><header><strong>FieldMoist</strong><p>Windows 首次安装指导 · 配套 public / private 发布文件</p></header>
+<div class="layout"><nav aria-label="章节导航"><strong>章节导航</strong><a href="#section-2">目录</a><a href="#section-3">1. 开始前准备</a><a href="#section-7">2. 文件夹、命令窗口和输入方法</a><a href="#section-11">3. 解压公开代码与私有文件</a><a href="#section-14">4. 安装 Miniconda 和 Node.js</a><a href="#section-17">5. 创建 FieldMoist 环境</a><a href="#section-20">6. 把私有算法安装到正确位置</a><a href="#section-23">7. 数据清单与完整放置位置</a><a href="#section-29">8. 设置后端和地图配置</a><a href="#section-33">9. 检查数据并初始化数据库</a><a href="#section-38">10. 安装网页所需组件</a><a href="#section-39">11. 启动后端、前端并打开网页</a><a href="#section-43">12. 确认 jiefangzha 展示正常</a><a href="#section-44">13. 输入 test，完成离线计算</a><a href="#section-49">14. 关闭软件和下次重新打开</a><a href="#section-53">15. 可选：首次 GEE 认证和在线处理</a><a href="#section-58">16. 常见问题与处理办法</a><a href="#section-78">17. 首次安装验收清单</a><a href="#section-79">18. 无高德底图时</a></nav><main><p class="note">本页可直接双击打开，无需启动服务器。按 Ctrl+P 可打印或选择“另存为 PDF”。<a href="DATA_INVENTORY.csv">逐文件数据清单（CSV）</a>。<a href="First Installation Guide.html">English edition</a>。</p><h1 id="section-1">FieldMoist 首次安装指导</h1>
+<p>语言：中文 | <a href="First Installation Guide.md">English</a>。<a href="First Installation Guide.html">英文 HTML 版</a> 也可直接双击阅读。</p>
+<p>本手册仅为技术参考。项目仅供展示，所有权利保留；<a href="LICENSE">LICENSE</a> 不授予运行、复制、修改或分发许可，获得文件或安装说明不构成授权。</p>
+<p>适用对象：第一次安装本项目的 Windows 用户。</p>
+<p>适用版本：本次 <code>public</code> 公开代码与配套 <code>private</code> 编译算法，Windows 10/11、x64 电脑、Python 3.12。</p>
+<p>此手册能指导实现两件事：打开网页看到 <strong>jiefangzha</strong> 的土壤水分图；选择离线模式，输入 <strong>test</strong> 并计算出结果。介绍一个流程： GEE 在线处理。</p>
+<h2 id="section-2">目录</h2>
+<ol>
+<li>开始前准备</li>
+<li>文件夹、命令窗口和输入方法</li>
+<li>解压公开代码与私有文件</li>
+<li>安装 Miniconda 和 Node.js</li>
+<li>创建 FieldMoist 环境</li>
+<li>把私有算法安装到正确位置</li>
+<li>数据清单与完整放置位置</li>
+<li>设置后端和地图配置</li>
+<li>检查数据并初始化数据库</li>
+<li>安装网页所需组件</li>
+<li>启动后端、前端并打开网页</li>
+<li>确认 jiefangzha 展示正常</li>
+<li>输入 test，完成离线计算</li>
+<li>关闭软件和下次重新打开</li>
+<li>可选：首次 GEE 认证和在线处理</li>
+<li>常见问题与处理办法</li>
+<li>首次安装验收清单</li>
+</ol>
+<h2 id="section-3">1. 开始前准备</h2>
+<h3 id="section-4">1.1 数据及代码准备</h3>
+<table>
+<thead><tr>
+<th>要拿到的内容</th>
+<th>里面应有什么</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public 文件夹或公开代码压缩包</td>
+<td><code>backend</code>、<code>frontend</code>、<code>tools</code>、<code>environment.yml</code></td>
+<td>网页与业务程序</td>
+</tr>
+<tr>
+<td>同一版本的 private 文件夹或私有压缩包</td>
+<td><code>backend</code>、<code>LICENSE.txt</code>、<code>README.md</code></td>
+<td>编译算法；没有它后端不能完整运行</td>
+</tr>
+<tr>
+<td>jiefangzha 展示数据</td>
+<td>区域边界、24 张 TIF、24 张 PNG</td>
+<td>启动后显示已有地图</td>
+</tr>
+<tr>
+<td>test 离线计算数据</td>
+<td>测试边界、24 张 SMAP、2 张土壤水分 TIF、1 个 Excel、1 个模型</td>
+<td>运行本地计算</td>
+</tr>
+<tr>
+<td>可用的高德地图配置</td>
+<td>JavaScript API Key、安全密钥、允许的本机访问地址</td>
+<td>显示卫星底图与地图控件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>公开代码、私有编译文件和数据是三类不同的东西。拿到其中一类，不代表另外两类已经包含。</strong></p>
+<p>本手册不提供虚构的数据下载地址。请使用项目提供者给你的下载链接、移动硬盘或共享文件夹；如果缺少文件，先向提供者索取。私有仓库链接需要对方给你的 GitHub 账号授权，不能只凭链接访问。</p>
+<h3 id="section-5">1.2 检查电脑</h3>
+<ol>
+<li>点击 Windows“开始”按钮，打开“设置”。</li>
+<li>进入“系统”→“系统信息”或“关于”。</li>
+<li>找到“系统类型”，应是“64 位操作系统，基于 x64 的处理器”。</li>
+<li>如果显示 ARM、32 位，或者你使用苹果电脑，这份编译算法不能直接使用，请联系提供者。</li>
+</ol>
+<p>建议使用 16 GB 或更多内存，项目盘预留至少 40 GB 空间，安装软件的系统盘另留约 10 GB。这是用于本示例的准备建议，不是保证运行的最低配置。完整原始遥感处理数据可能远大于示例数据，需按提供者给出的数据包大小另留空间。</p>
+<p>安装软件和下载依赖需要网络。<strong>Offline（离线）表示计算不用 GEE 下载影像，不表示安装、地图底图、天气查询都可以断网使用。</strong></p>
+<h3 id="section-6">1.3 本手册统一使用的文件位置</h3>
+<p>为了少改命令，建议在 C 盘创建：</p>
+<pre><code class="lang-text">C:\FieldMoist\
+    public\
+    private\
+</code></pre>
+<p>创建方法：按键盘 Win+E 打开文件资源管理器，点击左侧“此电脑”，双击 C 盘；
+在空白处右键→“新建”→“文件夹”，输入 <code>FieldMoist</code> 并回车。进入这个文件夹，
+按照第 3 节把解压后的公开代码与私有文件分别放进去，最终形成上面的两层结构。</p>
+<p>如果 C 盘空间不足，可以改成 <code>D:\FieldMoist</code>。后面的命令中凡出现 <code>C:\FieldMoist</code>，都改成你的实际位置。不要一部分用 C 盘、一部分用 D 盘。</p>
+<p>建议使用简单英文路径，不要放在压缩包内部、云盘自动同步目录、U 盘或网络共享盘里直接运行。下载原文件可以来自这些地方，但运行前请复制到电脑本地磁盘。</p>
+<h2 id="section-7">2. 文件夹、命令窗口和输入方法</h2>
+<h3 id="section-8">2.1 路径</h3>
+<p><code>C:\FieldMoist\public\backend</code> 的意思是：打开 C 盘，再打开 FieldMoist，再打开 public，再打开 backend。</p>
+<p>打开任意文件夹，点击窗口上方地址栏，可以粘贴一整条路径，然后按键盘 Enter（回车键）直接到达。</p>
+<h3 id="section-9">2.2 显示文件扩展名</h3>
+<p>文件名结尾的 <code>.py</code>、<code>.tif</code>、<code>.pyd</code>、<code>.xlsx</code> 是文件类型。Windows 有时默认隐藏它们。</p>
+<ul>
+<li>Windows 11：文件夹窗口顶部“查看”→“显示”→勾选“文件扩展名”；同时勾选“隐藏的项目”。</li>
+<li>Windows 10：“查看”选项卡→勾选“文件扩展名”和“隐藏的项目”。</li>
+</ul>
+<p>后面要创建 <code>.env</code> 文件。一定要看见完整文件名，避免实际保存成 <code>.env.txt</code>。</p>
+<h3 id="section-10">2.3 什么是“命令”以及怎么执行</h3>
+<p>命令就是粘贴到命令窗口里、按回车执行的一行文字。本手册所有普通命令统一在 <strong>Anaconda Prompt</strong> 中运行，不是 Python 交互窗口，也不是浏览器地址栏。</p>
+<p>安装 Miniconda 后，点击开始菜单，搜索 <code>Anaconda Prompt</code>。名称也可能包含 <code>Miniconda3</code>。选择 <strong>Anaconda Prompt</strong>，不要选择 Anaconda PowerShell Prompt；本手册的 <code>cd /d</code> 和 <code>copy</code> 按前者的命令格式编写。</p>
+<p>操作方法：</p>
+<ol>
+<li>选中文档灰色命令框中一行文字，按 Ctrl+C。</li>
+<li>点击 Anaconda Prompt 窗口，按 Ctrl+V；旧版窗口也可右键粘贴。</li>
+<li>按 Enter 执行。</li>
+<li>等待结果，不要连续重复按 Enter。</li>
+<li>如果窗口又出现类似 <code>(FieldMoist) C:\FieldMoist\public&gt;</code> 的行，说明上一条命令已经结束，可以输入下一条。</li>
+</ol>
+<p>只复制框内命令，不复制“<code>``”、章节标题或窗口中的</code>(FieldMoist) C:...&gt;` 提示文字。命令里的标点请保持英文，不要自己改成中文引号。</p>
+<p><strong>启动后端和前端时是例外：窗口持续显示日志、不返回提示行是正常的，因为程序要一直运行。</strong></p>
+<h2 id="section-11">3. 解压公开代码与私有文件</h2>
+<h3 id="section-12">3.1 公开代码</h3>
+<ol>
+<li>如果收到 ZIP，右键→“全部解压缩”，等待完成。不要只双击 ZIP 后就在里面操作。</li>
+<li>打开解压后的文件夹。</li>
+<li>找到同时含有 <code>backend</code>、<code>frontend</code>、<code>tools</code> 和 <code>environment.yml</code> 的那一层。</li>
+<li>将这一层文件夹命名为 <code>public</code>，放在 <code>C:\FieldMoist</code> 中。</li>
+<li>在文件夹地址栏输入 <code>C:\FieldMoist\public</code>，确认直接看得到 <code>environment.yml</code>。</li>
+</ol>
+<p>正确结构：</p>
+<pre><code class="lang-text">C:\FieldMoist\public\environment.yml
+C:\FieldMoist\public\backend\manage.py
+C:\FieldMoist\public\frontend\package.json
+C:\FieldMoist\public\tools\install_core.py
+</code></pre>
+<p>常见错误是多了一层：<code>C:\FieldMoist\public\public\backend</code> 或 <code>public\FieldMoist-main\backend</code>。出现这种情况，把里面的内容移到正确的一层。</p>
+<h3 id="section-13">3.2 私有编译文件</h3>
+<p>同样解压私有压缩包，找到包含 <code>backend</code> 与 <code>LICENSE.txt</code> 的那一层，命名为 <code>private</code>，放在 <code>C:\FieldMoist</code> 中。</p>
+<p>你应该能找到：</p>
+<pre><code class="lang-text">C:\FieldMoist\private\LICENSE.txt
+C:\FieldMoist\private\backend\service\transform_tif\_native\win_amd64_cp312\manifest.json
+</code></pre>
+<p><code>win_amd64_cp312</code> 下应该有 <code>function1</code>、<code>function2</code>、<code>function3</code>、<code>predeal</code> 四个文件夹，以及 <code>manifest.json</code>。</p>
+<p>每个目录中有 <code>.pyd</code> 文件和空的 <code>__init__.py</code>。不要双击运行 <code>.pyd</code>，不要把 <code>.pyd</code> 改成 <code>.py</code>，也不要修改它的名称。它们稍后由安装命令自动复制。</p>
+<p><strong>不要把 private 文件夹整个覆盖到 public 上，也不要把整个 backend 文件夹替换掉。</strong></p>
+<h2 id="section-14">4. 安装 Miniconda 和 Node.js</h2>
+<p>如果这两个软件已经正确安装，可直接检查版本。无需重复安装 Anaconda、Miniconda 和单独的 Python。</p>
+<h3 id="section-15">4.1 安装 Miniconda</h3>
+<ol>
+<li>在浏览器打开官方页面：<a href="https://www.anaconda.com/docs/getting-started/miniconda/install">https://www.anaconda.com/docs/getting-started/miniconda/install</a>。</li>
+<li>选择 Windows 的 64 位安装程序。不要下载 macOS、Linux 或 ARM 安装程序。</li>
+<li>下载结束后双击安装程序。</li>
+<li>阅读许可条款后自行决定是否接受，按安装向导继续。</li>
+<li>选择“Just Me”（仅当前用户）通常即可；安装路径使用默认位置。</li>
+<li>其他选项保持安装程序推荐设置。不需要手动添加 PATH，不需要更改所有系统 Python。</li>
+<li>点击安装，等待结束，关闭安装窗口。</li>
+<li>点击开始菜单，搜索并打开 <code>Anaconda Prompt</code>。</li>
+<li>输入下面命令：</li>
+</ol>
+<pre><code class="lang-bat">conda --version
+</code></pre>
+<p>出现 <code>conda</code> 加版本号表示成功。Miniconda 自带的默认 Python 即使不是 3.12 也没关系，后面会创建项目专用 Python 3.12 环境。</p>
+<h3 id="section-16">4.2 安装 Node.js</h3>
+<ol>
+<li>打开官方页面：<a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>。</li>
+<li>选择 Windows x64 的安装程序（<code>.msi</code>），建议 Node.js 22 LTS，版本至少 22.12。</li>
+<li>双击安装，按向导继续，阅读并自行接受所需协议。</li>
+<li>保持包含 npm 的默认组件；本项目不需要勾选额外安装编译工具的选项。</li>
+<li>安装完成后，关闭原来的 Anaconda Prompt，再重新打开一个。</li>
+<li>分别执行：</li>
+</ol>
+<pre><code class="lang-bat">node --version
+</code></pre>
+<pre><code class="lang-bat">npm --version
+</code></pre>
+<p>两条命令都应显示版本号。例如第一条显示 <code>v22.12.0</code> 或更高的兼容版本。不要输入 <code>node</code> 后直接回车，否则会进入另一种交互窗口；若误入，按 Ctrl+C 两次退出。</p>
+<h2 id="section-17">5. 创建 FieldMoist 环境</h2>
+<p>“环境”可以理解成项目专用的工具箱，软件会按清单把 Python 和依赖装进去。</p>
+<h3 id="section-18">5.1 进入公开代码目录</h3>
+<p>打开 Anaconda Prompt，执行：</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+</code></pre>
+<p><code>cd</code> 是进入文件夹，<code>/d</code> 表示需要时同时切换盘符。窗口末尾应出现 <code>C:\FieldMoist\public&gt;</code>。</p>
+<p>接着执行：</p>
+<pre><code class="lang-bat">dir environment.yml
+</code></pre>
+<p>应列出 <code>environment.yml</code>。如果显示找不到文件，先回到第 3 节检查解压层级，不要继续安装。</p>
+<h3 id="section-19">5.2 按清单创建环境</h3>
+<pre><code class="lang-bat">conda env create -f environment.yml
+</code></pre>
+<p>这一步会下载组件，可能需要数分钟到更长时间。只要还在下载或处理文件，就不要关窗口。若出现许可或服务条款，请阅读后自行决定是否接受；出现 <code>[y/n]</code> 时，确认同意操作才输入 <code>y</code> 并回车。</p>
+<p>成功后通常会出现提示，告诉你用 <code>conda activate FieldMoist</code> 激活。然后执行：</p>
+<pre><code class="lang-bat">conda activate FieldMoist
+</code></pre>
+<p>窗口左边应出现 <code>(FieldMoist)</code>。再检查：</p>
+<pre><code class="lang-bat">python --version
+</code></pre>
+<p>必须显示 <code>Python 3.12.x</code>。再执行：</p>
+<pre><code class="lang-bat">python -c &quot;import platform; print(platform.machine())&quot;
+</code></pre>
+<p>应显示 <code>AMD64</code>。不要看到 Python 3.13、3.14 等版本还继续，因为私有文件是专门为 3.12 编译的。</p>
+<p>新用户用 <code>FieldMoist</code>。<code>SoilMoisturePlatform</code> 只是作者之前使用的环境名，你不需要创建这个旧环境。</p>
+<p>如果提示环境已存在，先运行 <code>conda activate FieldMoist</code> 和版本检查，不要随意删除现有环境。依赖报错时将错误信息交给提供者处理。</p>
+<h2 id="section-20">6. 把私有算法安装到正确位置</h2>
+<p>确认窗口仍在 <code>C:\FieldMoist\public</code>，左侧有 <code>(FieldMoist)</code>。执行：</p>
+<pre><code class="lang-bat">python tools/install_core.py --from-dir C:\FieldMoist\private
+</code></pre>
+<p>成功时应显示：</p>
+<pre><code class="lang-text">Windows core installed. Run python tools/smoke_native_core.py next.
+</code></pre>
+<p>若显示 <code>The matching core is already installed.</code>，表示同版本已装好，也可以继续。</p>
+<h3 id="section-21">6.1 这一步到底复制到哪里</h3>
+<table>
+<thead><tr>
+<th>从哪里读取</th>
+<th>自动复制到哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>C:\FieldMoist\private\backend\service\transform_tif\_native\win_amd64_cp312</code></td>
+<td><code>C:\FieldMoist\public\backend\service\transform_tif\_native\win_amd64_cp312</code></td>
+</tr>
+<tr>
+<td><code>C:\FieldMoist\private\LICENSE.txt</code></td>
+<td><code>C:\FieldMoist\public\backend\service\transform_tif\CORE_LICENSE.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>安装后，公开代码所在目录里应该出现下面这些文件：</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\service\transform_tif\
+    __init__.py
+    transform_tif.py
+    CORE_LICENSE.txt
+    _native\
+        win_amd64_cp312\
+            manifest.json
+            function1\
+                __init__.py
+                pipeline.cp312-win_amd64.pyd
+                soil_moisture_solver.cp312-win_amd64.pyd
+                （还有其他编译文件）
+            function2\
+                __init__.py
+                pipeline.cp312-win_amd64.pyd
+                （还有其他编译文件）
+            function3\
+                __init__.py
+                fusion_pipeline.cp312-win_amd64.pyd
+                （还有其他编译文件）
+            predeal\
+                __init__.py
+                pipeline.cp312-win_amd64.pyd
+                （还有其他编译文件）
+</code></pre>
+<p>括号里的文字是解释，不是需要你创建的文件。四个目录一共应有 <strong>26 个 <code>.pyd</code></strong>，以及 <strong>4 个空的 <code>__init__.py</code></strong>。<code>manifest.json</code> 是校验清单，不要编辑它。</p>
+<h3 id="section-22">6.2 检查算法是否装好</h3>
+<pre><code class="lang-bat">python tools/smoke_native_core.py
+</code></pre>
+<p>应最终出现：</p>
+<pre><code class="lang-text">26 native imports and Windows worker checks passed.
+</code></pre>
+<p>说明 26 个模块能够加载，多进程测试通过。如果报错，不要试着删除或重命名 <code>.pyd</code>。先查看第 16 节。</p>
+<h2 id="section-23">7. 数据清单与完整放置位置</h2>
+<p>这一节最容易出错。<strong>所有示例数据放到 public 里面的 <code>backend\media</code>，不是 private，也不是 public 根目录。</strong></p>
+<p>本节每条相对位置都以 <code>C:\FieldMoist\public\backend\media\</code> 为起点。</p>
+<h3 id="section-24">7.1 A 组：jiefangzha 展示必需数据</h3>
+<table>
+<thead><tr>
+<th>数据</th>
+<th>数量</th>
+<th>放置位置与文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>展示区边界主文件</td>
+<td>1</td>
+<td><code>images\83\shp\shp.shp</code></td>
+</tr>
+<tr>
+<td>展示区边界索引</td>
+<td>1</td>
+<td><code>images\83\shp\shp.shx</code></td>
+</tr>
+<tr>
+<td>展示区边界属性</td>
+<td>1</td>
+<td><code>images\83\shp\shp.dbf</code></td>
+</tr>
+<tr>
+<td>展示区坐标系</td>
+<td>1</td>
+<td><code>images\83\shp\shp.prj</code></td>
+</tr>
+<tr>
+<td>展示区文字编码</td>
+<td>1，随包保留</td>
+<td><code>images\83\shp\shp.cpg</code></td>
+</tr>
+<tr>
+<td>已计算的逐日土壤水分图</td>
+<td>24 个 TIF</td>
+<td><code>images\83\2018-05-01_2018-05-24\soil_moisture_result\2018-05-01.tif</code> 至 <code>2018-05-24.tif</code></td>
+</tr>
+<tr>
+<td>网页显示用逐日图片</td>
+<td>24 个 PNG</td>
+<td><code>images\83\2018-05-01_2018-05-24\soil_moisture_png\2018-05-01.png</code> 至 <code>2018-05-24.png</code></td>
+</tr>
+</tbody>
+</table>
+<p>日期从 2018 年 5 月 1 日连续到 24 日，每天一张 TIF、一张 PNG。文件名中不要加“副本”“(1)”或其他文字。边界的几种文件必须同名并放在一起，不能只拿一个 <code>.shp</code>。</p>
+<h3 id="section-25">7.2 B 组：输入 test 后计算必需数据</h3>
+<table>
+<thead><tr>
+<th>数据</th>
+<th>数量</th>
+<th>放置位置与文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试区边界</td>
+<td>4 个必需文件，另附 cpg</td>
+<td><code>images\82\shp\shp.shp</code>、<code>shp.shx</code>、<code>shp.dbf</code>、<code>shp.prj</code>、<code>shp.cpg</code></td>
+</tr>
+<tr>
+<td>本地 SMAP 输入</td>
+<td>24 个 TIF</td>
+<td><code>images\82\offline\smap\SMAP_2018-05-01.tif</code> 至 <code>SMAP_2018-05-24.tif</code></td>
+</tr>
+<tr>
+<td>本地预计算土壤水分</td>
+<td>2 个 TIF</td>
+<td><code>images\82\82\local_soil_moisture\soil_moisture_2018-05-11.tif</code> 和 <code>soil_moisture_2018-05-23.tif</code></td>
+</tr>
+<tr>
+<td>测站表格</td>
+<td>1 个 XLSX</td>
+<td><code>images\82\82\measurements\measurements.xlsx</code></td>
+</tr>
+<tr>
+<td>配套共享模型</td>
+<td>1 个 PKL</td>
+<td><code>images\82\2018-05-01_2018-05-24\process\shared_ml_model_rf.pkl</code></td>
+</tr>
+</tbody>
+</table>
+<p>请特别注意：</p>
+<ul>
+<li><strong><code>images\82\82</code> 连续两层 82 是正确的，不要删掉其中一层。</strong></li>
+<li>展示区用 <code>83</code>，测试区用 <code>82</code>，两份边界各放各的位置。</li>
+<li>输入 <code>test</code> 不需要自己上传 Sentinel-1、Sentinel-2 文件，也不需要 GEE 认证。</li>
+<li>Excel 使用提供者给的版本，包含 <code>lon</code>、<code>lat</code> 坐标列。不要删列、改列名或另存成 CSV。</li>
+<li>共享模型是数据包的一部分，<code>.pkl</code> 不等于私有仓库里的 <code>.pyd</code>。不要把两者放在一起或替换。</li>
+<li>模型必须与代码、测试数据匹配。拿不到文件时不要找其他同名模型代替。</li>
+<li><code>.enp</code>、<code>.ebb</code>、<code>.ed1</code>、<code>.eq1</code>、<code>.qtr</code> 等是附属文件，不属于本示例必须提供的输入；不要用它们代替 TIF 或 SHP。收到后原样备份即可。</li>
+<li>第一次测试不要混入作者以前运行产生的 <code>process\cycles</code>、<code>.fusion.complete</code>、<code>.stage1.complete</code>、<code>.stage2.complete</code> 或测试结果目录。测试任务应使用干净输入，模型文件仍需保留。</li>
+</ul>
+<h3 id="section-26">7.3 一眼核对整个数据目录</h3>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\
+    README.md
+    images\
+        83\
+            shp\
+                shp.shp
+                shp.shx
+                shp.dbf
+                shp.prj
+                shp.cpg
+            2018-05-01_2018-05-24\
+                soil_moisture_result\
+                    2018-05-01.tif
+                    ...（连续到 24 日，共 24 个）
+                    2018-05-24.tif
+                soil_moisture_png\
+                    2018-05-01.png
+                    ...（连续到 24 日，共 24 个）
+                    2018-05-24.png
+        82\
+            shp\
+                shp.shp
+                shp.shx
+                shp.dbf
+                shp.prj
+                shp.cpg
+            offline\
+                smap\
+                    SMAP_2018-05-01.tif
+                    ...（连续到 24 日，共 24 个）
+                    SMAP_2018-05-24.tif
+            82\
+                local_soil_moisture\
+                    soil_moisture_2018-05-11.tif
+                    soil_moisture_2018-05-23.tif
+                measurements\
+                    measurements.xlsx
+            2018-05-01_2018-05-24\
+                process\
+                    shared_ml_model_rf.pkl
+</code></pre>
+<p>树形图中的 <code>...</code> 仅代表省略显示的日期，不需要创建名为 <code>...</code> 的文件。</p>
+<h3 id="section-27">7.4 实际复制方法</h3>
+<ol>
+<li>解压数据包到一个临时文件夹，等待全部解压完成。</li>
+<li>在另一个文件夹窗口打开 <code>C:\FieldMoist\public\backend\media</code>。</li>
+<li>如果数据包顶层是 <code>media</code>，打开它，把<strong>里面的内容</strong>复制到当前 <code>media</code> 中。</li>
+<li>如果数据包顶层就是 <code>images</code>，把 <code>images</code> 复制到当前 <code>media</code> 中。</li>
+<li>如果数据包顶层只有 <code>82</code> 和 <code>83</code>，先在当前 <code>media</code> 中创建 <code>images</code> 文件夹，再把 <code>82</code> 和 <code>83</code> 放进去。</li>
+<li>用上面的目录树逐级核对。</li>
+</ol>
+<p>正确例子：</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\images\83\shp\shp.shp
+</code></pre>
+<p>错误例子：</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\media\images\83\shp\shp.shp
+C:\FieldMoist\public\images\83\shp\shp.shp
+C:\FieldMoist\private\backend\media\images\83\shp\shp.shp
+</code></pre>
+<p>若出现“替换已有文件”提示，先确认没有把已有项目数据或已生成结果覆盖掉。第一次安装应使用空的新项目目录。</p>
+<p>另附的 <a href="DATA_INVENTORY.csv">数据逐文件清单</a> 使用英文列名，列出每一个示例输入的名字、目标位置和当前交付基准文件大小，可以用 Excel 打开或交给提供者逐项核对。<code>relative_media_path</code> 是相对 media 的路径，<code>example_destination</code> 是示例完整位置，<code>baseline_bytes</code> 是当前基准字节数。大小是提供者当前版本的参考值，不是程序验证的全部条件。</p>
+<p>当前清单共 95 个文件（包含两份建议保留的 <code>.cpg</code>、82 的 4 份 NASA 缓存和 83 的 5 份 NASA 缓存），总计 3,250,551,078 字节，
+约 3.03 GiB。这只是展开后的示例输入，<strong>不包括环境、安装程序、计算中间文件和新结果</strong>。
+因此不要只留 3 GB 空间。整个研究数据包可能另含更多文件，应以实际收到的包为准。</p>
+<h3 id="section-28">7.5 C 组：完整遥感处理额外数据（先不用放也能运行 test）</h3>
+<p>如果以后要从 Sentinel 等原始影像做完整处理，还需要下列提供者配套文件。它们不是第一次查看展示与运行 <code>test</code> 的前置条件。</p>
+<table>
+<thead><tr>
+<th>额外文件</th>
+<th>放在 media 下的位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAI 模型</td>
+<td><code>model\model_LAI.pkl</code></td>
+</tr>
+<tr>
+<td>ALA 模型</td>
+<td><code>model\model_ALA.pkl</code></td>
+</tr>
+<tr>
+<td>CWC 模型</td>
+<td><code>model\model_CWC.pkl</code></td>
+</tr>
+<tr>
+<td>AIEM-Dobson 模型</td>
+<td><code>model\AIEM_Dobson.pkl</code></td>
+</tr>
+<tr>
+<td>粗分辨率辅助栅格</td>
+<td><code>mask_tif\coarse.tif</code></td>
+</tr>
+<tr>
+<td>黏粒栅格</td>
+<td><code>Clay_Sand_RongZhong_tifs\Clay.tif</code></td>
+</tr>
+<tr>
+<td>砂粒栅格</td>
+<td><code>Clay_Sand_RongZhong_tifs\Sand.tif</code></td>
+</tr>
+<tr>
+<td>土壤容重栅格</td>
+<td><code>Clay_Sand_RongZhong_tifs\RongZhong.tif</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些栅格可能很大，且覆盖区域、坐标系和模型版本需要匹配。不要因为程序缺文件而自行创建同名空文件。也不要认为通过 GEE 认证就会自动下载这些本地模型。</p>
+<h2 id="section-29">8. 设置后端和地图配置</h2>
+<p>现在仍在 Anaconda Prompt，目录是 <code>C:\FieldMoist\public</code>，环境是 <code>(FieldMoist)</code>。</p>
+<h3 id="section-30">8.1 创建两个配置文件（只在第一次做）</h3>
+<p>逐条执行：</p>
+<pre><code class="lang-bat">copy .env.example .env
+</code></pre>
+<pre><code class="lang-bat">copy frontend\.env.example frontend\.env
+</code></pre>
+<p>成功时一般显示“已复制 1 个文件”。如果问是否覆盖，表示已有配置，<strong>先选 N，不要覆盖自己已经填好的内容</strong>。</p>
+<p>这两个文件位置不同：</p>
+<ul>
+<li><code>C:\FieldMoist\public\.env</code>：后端配置。</li>
+<li><code>C:\FieldMoist\public\frontend\.env</code>：网页地图配置。</li>
+</ul>
+<h3 id="section-31">8.2 编辑后端配置</h3>
+<p>执行：</p>
+<pre><code class="lang-bat">notepad .env
+</code></pre>
+<p>记事本会打开文件。请保留以下本机配置：</p>
+<pre><code class="lang-ini">DJANGO_DEBUG=true
+DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
+CORS_ALLOWED_ORIGINS=http://127.0.0.1:5173,http://localhost:5173
+DB_ENGINE=sqlite
+</code></pre>
+<p><code>sqlite</code> 表示系统自己创建数据库文件，不需要安装 MySQL，也不需要数据库用户名密码。</p>
+<p>生成自己的后端随机密钥：在 Anaconda Prompt 执行下面命令，它只显示一串随机文字。</p>
+<pre><code class="lang-bat">python -c &quot;import secrets; print(secrets.token_urlsafe(48))&quot;
+</code></pre>
+<p>复制显示出的随机文字，替换记事本中的 <code>DJANGO_SECRET_KEY=replace-with-a-long-random-value</code> 等号后面那一段。保留 <code>DJANGO_SECRET_KEY=</code>，不要改字段名，不要把窗口提示符复制进去。按 Ctrl+S 保存并关闭记事本。</p>
+<p>先做离线示例时，不需要填写 GEE 账号；不要把注释行前的 <code>#</code> 随便删掉。<code>FIELD_MOIST_MEDIA_ROOT</code> 和 <code>FIELDMOIST_G_*</code> 暂时保持原有注释状态，使用默认数据位置和处理模式。</p>
+<h3 id="section-32">8.3 编辑高德地图配置</h3>
+<p>执行：</p>
+<pre><code class="lang-bat">notepad frontend\.env
+</code></pre>
+<p>内容形如：</p>
+<pre><code class="lang-ini">VITE_API_BASE_URL=http://127.0.0.1:8000/
+VITE_AMAP_KEY=这里替换为实际的JavaScript_API_Key
+VITE_AMAP_SECURITY_CODE=这里替换为对应安全密钥
+</code></pre>
+<p>第二、三行中文只是说明，<strong>不能原样填进去</strong>。向提供者索取可用于你电脑的配置，或登录高德开放平台 <a href="https://lbs.amap.com/">https://lbs.amap.com/</a>，进入控制台的应用管理创建应用，添加“Web端（JS API）”类型 Key，再取得该 Key 对应的安全密钥。平台界面可能调整，以控制台实际名称为准。</p>
+<p>如控制台要求填写允许的访问域名或来源，应允许本机访问的 <code>localhost</code> 和 <code>127.0.0.1</code>，涉及端口的来源使用本手册的 <code>5173</code>。不确定平台字段格式时，请让提供者按平台要求配置。</p>
+<p>不要拿“Web服务 API”或手机 App 类型的 Key 代替 JavaScript API Key。没有正确地图凭据，计算可能仍可运行，但不能承诺出现完整的高德底图和地图展示。</p>
+<p>按 Ctrl+S 保存。由于我们是在打开现有文件，不需要“另存为”。回到文件夹确认名称确实是 <code>.env</code>，而不是 <code>.env.txt</code>。</p>
+<h2 id="section-33">9. 检查数据并初始化数据库</h2>
+<h3 id="section-34">9.1 检查数据文件</h3>
+<pre><code class="lang-bat">python backend/manage.py validate_fieldmoist_data --dataset all
+</code></pre>
+<p>成功时应显示：</p>
+<pre><code class="lang-text">all dataset validation passed.
+</code></pre>
+<p>这条命令是<strong>初步检查</strong>：当前版本主要检查目录存在、部分文件存在和数量下限，不会逐个保证所有日期、Excel 内容、模型兼容性都正确。因此，显示通过后仍需核对第 7 节清单并完成真实 <code>test</code>。</p>
+<p>如报 <code>missing</code>、<code>expected</code>、<code>found</code>，分别可以理解为“缺失”“应有”“实际找到”。按提示检查路径和数据包，修复后再运行同一条命令。</p>
+<h3 id="section-35">9.2 创建数据库表</h3>
+<pre><code class="lang-bat">python backend/manage.py migrate
+</code></pre>
+<p>第一次运行会显示很多行 <code>Applying ... OK</code>，这是正常的。程序会在 <code>public\backend</code> 自动生成 <code>db.sqlite3</code>，不要自己从别的项目复制数据库过来。</p>
+<h3 id="section-36">9.3 注册 jiefangzha 展示数据</h3>
+<pre><code class="lang-bat">python backend/manage.py seed_fieldmoist
+</code></pre>
+<p>成功时会看到：</p>
+<pre><code class="lang-text">FieldMoist dataset registered: polygon 83, result set 83, 2018-05-01 to 2018-05-24.
+</code></pre>
+<p>这一步只是把已经放好的数据登记进数据库，不负责下载数据，也不负责生成缺少的 24 张影像。</p>
+<p>它要求展示目录恰好有 24 个 TIF 和 24 个 PNG；如果多放了其他日期或重复 TIF，可能失败。不要用 <code>--skip-file-check</code> 绕过问题。</p>
+<p><strong>此命令用于首次安装。之后日常启动不要反复运行。</strong> 当前版本还会清理 jiefangzha（编号 83）下除示例结果 83 外的其他结果记录；如果你后来在该区新建过任务，不应随意重新初始化。不要删除数据库来解决普通启动问题。</p>
+<h3 id="section-37">9.4 检查后端配置</h3>
+<pre><code class="lang-bat">python backend/manage.py check
+</code></pre>
+<p>应显示 <code>System check identified no issues</code>。到了这里，私有算法、数据库和基本配置均已具备。</p>
+<h2 id="section-38">10. 安装网页所需组件</h2>
+<p>第一次安装时，在同一个窗口逐条执行：</p>
+<pre><code class="lang-bat">npm ci --prefix frontend
+</code></pre>
+<p>等待依赖下载完成。这一步会自动创建 <code>frontend\node_modules</code>。不要自己从网上随意下载 node_modules 压缩包覆盖。</p>
+<p>然后执行：</p>
+<pre><code class="lang-bat">npm run build --prefix frontend
+</code></pre>
+<p>出现 <code>built in ...</code> 表示网页构建成功。已有的“Some chunks are larger than 500 kB”是文件体积提示，如果最后明确构建成功，不属于启动失败。</p>
+<p>安装命令可能提示存在依赖漏洞或更新版本。不要直接执行网上建议的 <code>npm audit fix --force</code>，它可能改变配套版本；将提示交给维护者处理。</p>
+<h2 id="section-39">11. 启动后端、前端并打开网页</h2>
+<p>需要同时开着两个 Anaconda Prompt 窗口，再打开浏览器。两个命令窗口都不能在使用时关掉。</p>
+<h3 id="section-40">11.1 窗口一：后端</h3>
+<p>打开一个 Anaconda Prompt，逐条执行：</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+</code></pre>
+<pre><code class="lang-bat">conda activate FieldMoist
+</code></pre>
+<pre><code class="lang-bat">python backend/manage.py runserver 127.0.0.1:8000 --noreload
+</code></pre>
+<p>看到类似下面文字后，<strong>保持这个窗口开着</strong>：</p>
+<pre><code class="lang-text">Starting development server at http://127.0.0.1:8000/
+</code></pre>
+<p><code>--noreload</code> 是本手册采用的启动参数，避免文件变化导致后台任务随开发服务器重启。Django 提示“development server”是正常提示；本手册只用于你自己电脑运行，不用于直接架设公网服务。</p>
+<p>检查后端是否可连接：打开 Edge 或 Chrome，在最上面的地址栏输入：</p>
+<pre><code class="lang-text">http://127.0.0.1:8000/api/health/
+</code></pre>
+<p>显示包含 <code>FieldMoist API</code> 和 <code>ok</code> 的文字即可。这不是主页面，看起来像一段数据是正常的。</p>
+<h3 id="section-41">11.2 窗口二：前端网页</h3>
+<p>再次从开始菜单打开一个新的 Anaconda Prompt，不要停止窗口一。</p>
+<p>逐条执行：</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+</code></pre>
+<pre><code class="lang-bat">conda activate FieldMoist
+</code></pre>
+<pre><code class="lang-bat">npm run dev --prefix frontend -- --host 127.0.0.1 --port 5173 --strictPort
+</code></pre>
+<p>看到类似：</p>
+<pre><code class="lang-text">Local: http://127.0.0.1:5173/
+</code></pre>
+<p>保持这个窗口开着。<code>--strictPort</code> 可以避免 5173 被占用时偷偷换到另一个端口，导致配置不匹配。</p>
+<h3 id="section-42">11.3 打开真正的网页</h3>
+<p>在浏览器地址栏输入：</p>
+<pre><code class="lang-text">http://127.0.0.1:5173/
+</code></pre>
+<p>按 Enter。注意是 <code>http</code>，不是 <code>https</code>；端口是 <code>5173</code>，不是 <code>8000</code>；地址要输进地址栏而不是网页中的搜索框。</p>
+<p>可以按 Ctrl+D 添加浏览器书签，方便下次打开。但书签不会替你启动后端和前端，两个命令窗口仍需先运行。</p>
+<h2 id="section-43">12. 确认 jiefangzha 展示正常</h2>
+<p>第一次加载地图和影像可能需要稍等。正常时应看到：</p>
+<ol>
+<li>顶部显示 <code>FieldMoist</code>，右侧状态是 <code>API connected</code>（后端已连接）。</li>
+<li>当前页是 <code>Explore</code>，研究区名字为 <code>jiefangzha</code>。</li>
+<li>主地图上有区域范围内的红、白、蓝土壤水分影像，高德卫星底图可见。</li>
+<li>右侧日期从 <code>2018-05-01</code> 开始，可以点向右箭头切换到次日。</li>
+<li>底部显示 <code>Dataset ID 83</code>、<code>24 daily products</code>。</li>
+<li>色标范围是 <code>0.00</code> 到 <code>0.40 m³/m³</code>。</li>
+<li>点击 <code>Download GeoTIFF</code> 会下载当前日期的栅格，一般出现在 Windows“下载”文件夹。</li>
+</ol>
+<p><code>Satellite</code> 是卫星底图，<code>Standard</code> 是标准底图；切换它们不改变土壤水分数据。</p>
+<p>如果右侧有日期和 24 天数据，但底图空白，先检查网络与高德 Key。若显示 <code>0 daily products</code>，优先检查数据目录、初始化命令和后端窗口的错误信息。</p>
+<h2 id="section-44">13. 输入 test，完成离线计算</h2>
+<h3 id="section-45">13.1 操作步骤</h3>
+<ol>
+<li>确认第 12 节展示正常。</li>
+<li>点击顶部 <code>Generate</code>（生成）进入处理页面。</li>
+<li>在 <code>Processing mode</code>（处理模式）里点击 <code>Offline</code>（离线）。</li>
+<li>点击 <code>Area name</code>（区域名称）输入框，输入小写英文 <code>test</code>，不要加引号。</li>
+<li>点击输入框外空白处，等预设加载完成。</li>
+<li>系统会自动填入研究区边界、日期和本地文件路径。日期应为 <code>2018-05-01</code> 至 <code>2018-05-24</code>。</li>
+<li>看到 <code>Offline test dataset is ready. Click Start generation.</code>（离线测试数据已准备好）后，点击 <code>Start generation</code>（开始处理）。</li>
+<li>保持两个命令窗口开着，等待进度到 <code>Completed</code>（完成）和 100%。</li>
+<li>点击 <code>View generated result</code>（查看生成结果），检查新生成的测试区地图。</li>
+</ol>
+<p><strong>不要再手动上传 SMAP、Sentinel、边界或 Excel；test 预设会读取你放在固定位置的那一套输入。</strong> 不要修改自动填入的日期，也不要把区域 82 改成 83。</p>
+<h3 id="section-46">13.2 计算时哪些现象是正常的</h3>
+<ul>
+<li>后端窗口每个阶段只显示一行简短提示，例如“预处理影像”“计算土壤水分”“生成彩色产品”。计算细节和逐文件进度条不显示，一段时间没有新文字是正常的。</li>
+<li>电脑风扇转快、CPU 和内存使用增加。</li>
+<li>网页进度会阶段性跳变，不一定每秒增加。</li>
+<li>本机已有测试用时约 160 秒，只供参考。</li>
+</ul>
+<p>计算期间不要让电脑休眠、关机，不要关闭后端窗口，不要同时重复提交多个 <code>test</code>。页面仍显示处理中时请耐心等待，不要仅凭后端暂时没有新文字判断程序卡住。</p>
+<h3 id="section-47">13.3 结果自动保存在哪里</h3>
+<p>标准全新安装的 <code>test</code> 输出是：</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\images\82\2018-05-01_2018-05-24\soil_moisture_result\
+C:\FieldMoist\public\backend\media\images\82\2018-05-01_2018-05-24\soil_moisture_png\
+</code></pre>
+<p>前一个文件夹应有 24 个逐日 <code>.tif</code>，后一个应有 24 个 <code>.png</code>。相邻的 <code>process</code> 中会生成中间结果，不需要手动移动它们。</p>
+<p>默认不再生成 <code>ml_patch_report.xlsx</code>（像元替换对照报告）。输入用的测站 Excel 仍然必需；没有输出报告不代表缺少计算步骤。高德底图不可用时，仍可在本地彩色 PNG 上启用点分析并点击选点，圆圈显示在彩色产品上方。</p>
+<p>若数据库来自别处、编号被占用或运行过其他项目，路径可能不再符合这份首次安装示例，应使用全新公开代码和新建数据库来复现，不要手工改数据库编号。</p>
+<h3 id="section-48">13.4 想再跑一次怎么办</h3>
+<p>每次启动 <code>test</code> 都从原始输入重新计算，包括第一次启动、失败重试和 <code>Run test again</code>（重新运行测试）。程序先清理预处理副本、周期缓存、完成标记和旧 TIF/PNG，保留原始 SMAP、土壤水分输入、Excel、SHP、共享模型及 NASA 缓存。不会复用已裁剪结果进行像元替换。要保留旧结果，先在计算停止时把结果复制到项目外的备份目录。其他项目的断点续算策略不变。</p>
+<p>更新旧版本时，先停止后端，再覆盖公开程序文件和配套私有文件。在 <code>public</code> 目录、激活 <code>FieldMoist</code> 环境后运行 <code>python tools/install_core.py --from-dir ../private --upgrade</code> 安装新版核心，再运行 <code>python tools/smoke_native_core.py</code> 检查，然后重启前后端。使用构建后的前端时，还需重新运行 <code>npm run build --prefix frontend</code>。无需删除数据库，也无需重新执行 <code>seed_fieldmoist</code>。</p>
+<p>不要通过删除 <code>db.sqlite3</code>、删除 <code>images\82</code> 或删掉共享模型来“重置”。这些操作会丢数据或导致测试无法运行。</p>
+<h2 id="section-49">14. 关闭软件和下次重新打开</h2>
+<h3 id="section-50">14.1 正常关闭</h3>
+<ol>
+<li>等待正在执行的计算结束。</li>
+<li>点击前端命令窗口，按 Ctrl+C。如果出现是否终止批处理，输入 <code>Y</code> 并回车。</li>
+<li>点击后端命令窗口，按 Ctrl+C。</li>
+<li>关闭两个命令窗口，再关闭浏览器即可。</li>
+</ol>
+<p>如果任务没有结束就强制关机，数据库可能保留“处理中”状态；不要立刻重复运行或清空数据库，先联系维护者。</p>
+<h3 id="section-51">14.2 第二天开机以后</h3>
+<p>不需要重新下载文件，不需要重新创建环境，不需要重新安装算法，不需要每天执行 migrate 或 seed。</p>
+<p><strong>窗口一：</strong></p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+conda activate FieldMoist
+python backend/manage.py runserver 127.0.0.1:8000 --noreload
+</code></pre>
+<p><strong>窗口二：</strong></p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+conda activate FieldMoist
+npm run dev --prefix frontend -- --host 127.0.0.1 --port 5173 --strictPort
+</code></pre>
+<p>仍建议每次一行一行输入。最后打开 <a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a>。</p>
+<h3 id="section-52">14.3 哪些东西值得备份</h3>
+<p>在没有计算任务、后端停止时，备份自己的 <code>backend\db.sqlite3</code>、<code>backend\media</code> 和本机配置。备份应放在项目外的安全位置，不要上传到公开仓库。</p>
+<p>恢复备份要保持数据库和对应媒体文件一致，不要把另一份数据库单独覆盖进来。更新代码或算法前也应备份；更换算法版本建议由维护者指导使用匹配的新目录。</p>
+<h2 id="section-53">15. 可选：首次 GEE 认证和在线处理</h2>
+<p><strong>如果你的目的只是显示 jiefangzha 和运行离线 test，这一整节可以先跳过。</strong></p>
+<h3 id="section-54">15.1 在线模式另外需要什么</h3>
+<ul>
+<li>可以使用 Earth Engine 的 Google 账号。</li>
+<li>自己有权限的 Google Cloud 项目 ID；对应项目需要已启用 Earth Engine，并满足平台要求的注册、验证或计费条件。</li>
+<li>能连接 GEE 认证页面和服务端接口的网络。</li>
+<li>第 7.5 节的本地模型、辅助栅格，以及与你的区域匹配的处理数据。</li>
+</ul>
+<p>账号开通和项目权限由平台及项目管理员管理。若不熟悉，请让提供者协助准备，不要把作者之前脚本中的个人项目 ID 当作通用配置。</p>
+<h3 id="section-55">15.2 填入自己的 GEE 项目 ID</h3>
+<p>回到 Anaconda Prompt：</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+conda activate FieldMoist
+notepad .env
+</code></pre>
+<p>找到 <code>EARTH_ENGINE_PROJECT=your-google-cloud-project-id</code>，把等号后换成你的<strong>项目 ID</strong>。不是邮箱，不是项目显示名称，不是项目数字编号。</p>
+<p>保存并关闭记事本。其他服务账号配置保持注释即可；本节使用个人浏览器交互认证方式。</p>
+<h3 id="section-56">15.3 执行首次认证</h3>
+<pre><code class="lang-bat">python tools/authorize_earth_engine.py
+</code></pre>
+<p>这是本项目提供的首次认证入口，对应旧项目 <code>authorize.py</code> 的认证、初始化流程；不需要寻找旧项目目录，也不需要编辑 Python 代码。</p>
+<ol>
+<li>命令可能打开浏览器，或显示一个需要你打开的网址。</li>
+<li>用有 Earth Engine 和项目权限的 Google 账号登录。</li>
+<li>按 Google 页面及命令窗口提示完成授权；界面和验证方式可能随平台更新变化。</li>
+<li>如果提示验证码、回调或选择项目，按实际提示操作，不要把验证码或登录信息发给别人。</li>
+<li>最后命令窗口应显示 <code>Google Earth Engine authentication succeeded.</code>。</li>
+</ol>
+<p>认证信息保存在当前 Windows 用户的本机账户环境中。不是每次启动都要认证；换电脑、换 Windows 用户、凭据失效或权限变更时可能需要重新认证。</p>
+<p>**请注意网络环境。本机 Edge 能打开普通网页不代表后端 Python 能访问 GEE。应使用符合你所在机构要求、能够到达 GEE 的网络；文档不要求关闭防火墙或安装来历不明的网络工具。</p>
+<h3 id="section-57">15.4 在线开始前</h3>
+<p>修改 <code>.env</code> 后，停止并重新启动后端。打开 Generate，选 <code>Online</code>。区域名称使用你自己的名字，例如 <code>my-field</code>；不要把离线示例 <code>test</code> 当作在线快捷键。</p>
+<p>在线任务需要定义边界和日期，并下载远程影像。认证成功只说明认证初始化通过，不保证每个地区、日期都有可用数据，也不保证本地辅助文件齐全。</p>
+<p>先成功完成离线示例，再在维护者指导下运行在线处理。网络不通时不要反复点击开始；检查后端错误，优先确认网络、项目权限及本地模型。</p>
+<h2 id="section-58">16. 常见问题与处理办法</h2>
+<h3 id="section-59">16.1 “不是内部或外部命令”：conda、node、npm</h3>
+<p>若是 <code>conda</code>，确认打开的是安装 Miniconda 后提供的 Anaconda Prompt；关闭窗口再从开始菜单重新打开。</p>
+<p>若是 <code>node</code> 或 <code>npm</code>，确认 Node.js 已装好；安装后需要重新打开命令窗口。不要在 Python 的 <code>&gt;&gt;&gt;</code> 窗口中执行。</p>
+<h3 id="section-60">16.2 出现 <code>&gt;&gt;&gt;</code> 而不是文件夹路径</h3>
+<p>你进入了 Python 交互模式。输入 <code>exit()</code> 并回车，回到带文件夹路径的提示行后再执行手册命令。</p>
+<h3 id="section-61">16.3 提示 <code>environment.yml</code> 或 <code>manage.py</code> 找不到</h3>
+<p>重新执行 <code>cd /d C:\FieldMoist\public</code>，检查该目录里有没有 <code>environment.yml</code>，有没有 <code>backend\manage.py</code>。常见原因是 ZIP 多包了一层目录。</p>
+<h3 id="section-62">16.4 PowerShell 报错 <code>cd /d</code> 或 <code>copy</code></h3>
+<p>本手册统一用 Anaconda Prompt（CMD 风格），不是 PowerShell。关闭当前窗口，从开始菜单选正确的 Anaconda Prompt。无需因此修改系统执行策略。</p>
+<h3 id="section-63">16.5 环境下载很慢、Conda 或 npm 下载失败</h3>
+<p>先检查网络、磁盘空间和错误信息。慢不等于失败，不要一见长时间等待就强制关闭。确实出现下载错误时保留末尾完整信息，请维护者检查；不要随意混用镜像地址、pip GDAL 或强制升级依赖。</p>
+<h3 id="section-64">16.6 <code>Private FieldMoist core is missing</code> 或 <code>manifest.json</code> 找不到</h3>
+<p>说明私有算法未正确安装。检查 <code>C:\FieldMoist\private</code> 里是否直接有 <code>LICENSE.txt</code> 和 <code>backend</code>，再执行第 6 节安装命令。</p>
+<p>确认最终位置是 <code>public\backend\service\transform_tif\_native\win_amd64_cp312</code>，不是 <code>private\private</code>，也不是 <code>public\backend\backend</code>。</p>
+<h3 id="section-65">16.7 <code>DLL load failed</code>、<code>Invalid native artifact</code> 或导入模块失败</h3>
+<p>先检查 Python 3.12、Windows x64，再确认公私文件是同一版本且下载完整。校验失败可能表示文件损坏或版本不匹配，重新向提供者索取原包，不要修改 <code>manifest.json</code> 里的校验值。</p>
+<p>如果系统安全软件隔离了文件，先核实来源并联系提供者，不要直接关闭安全软件。若本机仍缺运行库，按维护者建议从微软官方来源安装，不要从随机网站下载单个 DLL。</p>
+<h3 id="section-66">16.8 <code>A different core version is installed</code></h3>
+<p>已装算法与新提供的版本不同。不要把新旧 <code>.pyd</code> 混在一个目录。保留旧项目备份，在新文件夹放入相互匹配的 public/private，再按手册安装。</p>
+<h3 id="section-67">16.9 缺少边界、影像、Excel 或共享模型</h3>
+<p>按第 7 节逐个检查。最常见的是漏了一层 <code>images</code>，多了一层 <code>media</code>，或把 <code>82\82</code> 合成一层。不要随便改 82/83 编号。</p>
+<h3 id="section-68">16.10 提示已有任务正在运行，或者一直停在处理中</h3>
+<p>先看网页的任务状态；后台现在只显示简短阶段提示，长时间没有新日志不等于停止运行。正在运行时不要重复提交。如果之前意外关机或关闭后端，状态可能残留；提供任务编号和错误信息给维护者，不要自行删数据库。</p>
+<h3 id="section-69">16.11 <code>Port 5173 is already in use</code> 或 8000 端口被占用</h3>
+<p>可能已开了一套系统。寻找之前的两个命令窗口，如果是自己的旧任务且已结束，按 Ctrl+C 停止；然后重新启动一套。</p>
+<p>如果占用端口的是不认识的软件，不要随意结束进程。请维护者处理。不要只把网页端口改成 5174 而不改相关配置，否则可能出现跨域错误。</p>
+<h3 id="section-70">16.12 网页打不开或显示无法访问此网站</h3>
+<p>确认后端、前端两个窗口都在运行。前端应显示 5173 地址。访问 <a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a>，不要输入 <code>https://</code>、不要在浏览器直接打开 <code>frontend\index.html</code>。</p>
+<h3 id="section-71">16.13 <code>API disconnected</code>、CORS 或跨域错误</h3>
+<p>先打开 <a href="http://127.0.0.1:8000/api/health/">http://127.0.0.1:8000/api/health/</a>。打不开说明后端未启动或启动失败。能打开时再检查前端 <code>.env</code> 中 API 地址是否为 <code>http://127.0.0.1:8000/</code>，后端 <code>.env</code> 是否允许 <code>127.0.0.1:5173</code>。</p>
+<p>配置改完后，分别重启两个命令窗口里的服务，再刷新网页。</p>
+<h3 id="section-72">16.14 有界面但地图空白，或影像没有显示</h3>
+<p>地图底图空白时，检查高德 Key、安全密钥、允许来源和网络。数据为 0 时，检查展示数据目录及首次初始化有没有成功。不要把所有空白问题都归结为 GEE；已有 jiefangzha 展示不需要 GEE。</p>
+<h3 id="section-73">16.15 <code>test</code> 输入后没有自动填入数据</h3>
+<p>确认先选择的是 <code>Offline</code>，名称是英文 <code>test</code>，输入后点一下外面并等待。查看页面报错。后端必须运行，私有算法必须安装，82 的边界和本地数据必须齐全。</p>
+<h3 id="section-74">16.16 开始按钮不能点击</h3>
+<p>先确认预设加载完成、起止日期都有内容、没有另一项任务运行。已经成功的任务请使用 <code>Run test again</code>，而不是反复点击显示成功的按钮。</p>
+<h3 id="section-75">16.17 Excel 或模型兼容错误</h3>
+<p>不要把 <code>measurements.xlsx</code> 改成别的格式，也不要拿不同版本模型替换。把模型文件名、代码版本、私有编译包版本和完整错误交给提供者确认。</p>
+<h3 id="section-76">16.18 关闭网页以后计算还在运行</h3>
+<p>浏览器不是计算程序本身。只关网页不会必然停止后端任务。完成后按第 14 节关闭后端；不要在文件还写入时强制关机。</p>
+<h3 id="section-77">16.19 怎么向提供者求助</h3>
+<p>说明你做到哪一节、执行哪条命令、看到什么结果。提供当前窗口最后 20 至 30 行错误、Python 版本、数据目录位置、任务编号。截取错误时保留上下文，不要只截最后一个词。</p>
+<p>不要发送 <code>.env</code> 内容、Google 验证码、账号密码、完整认证链接或地图密钥。数据缺失时可以发文件名清单，不必先发几 GB 数据。</p>
+<h2 id="section-78">17. 首次安装验收清单</h2>
+<p>可以打印本页，完成一项勾一项。</p>
+<ul>
+<li><input disabled="" type="checkbox"> 确认 Windows x64，软件与数据盘空间充足。</li>
+<li><input disabled="" type="checkbox"> <code>public</code> 下面直接有 <code>environment.yml</code>、<code>backend</code>、<code>frontend</code>、<code>tools</code>。</li>
+<li><input disabled="" type="checkbox"> <code>private</code> 下面直接有 <code>LICENSE.txt</code> 和 <code>backend</code>。</li>
+<li><input disabled="" type="checkbox"> <code>conda --version</code>、<code>node --version</code>、<code>npm --version</code> 能显示版本。</li>
+<li><input disabled="" type="checkbox"> 环境已激活，左侧是 <code>(FieldMoist)</code>，Python 是 3.12。</li>
+<li><input disabled="" type="checkbox"> 私有算法安装命令成功，26 个模块检查通过。</li>
+<li><input disabled="" type="checkbox"> 83 展示区的边界、24 张 TIF、24 张 PNG 已正确放置。</li>
+<li><input disabled="" type="checkbox"> 82 测试区的边界、24 张 SMAP、2 张土壤水分、Excel 和共享模型已放置。</li>
+<li><input disabled="" type="checkbox"> <code>82\82</code> 目录层级正确，首次测试没有混入旧的完成标记与计算缓存。</li>
+<li><input disabled="" type="checkbox"> 两份 <code>.env</code> 已创建；地图配置是实际有效值，没有保存成 <code>.txt</code>。</li>
+<li><input disabled="" type="checkbox"> 数据初步检查、数据库迁移、jiefangzha 登记和 Django 检查通过。</li>
+<li><input disabled="" type="checkbox"> npm 安装与构建通过。</li>
+<li><input disabled="" type="checkbox"> 两个服务窗口同时运行，健康检查返回 <code>ok</code>。</li>
+<li><input disabled="" type="checkbox"> 网页显示 jiefangzha、日期和 24 天产品，地图和影像可见。</li>
+<li><input disabled="" type="checkbox"> Offline 输入 test 后自动载入预设，实际计算到 100%。</li>
+<li><input disabled="" type="checkbox"> test 生成 24 张 TIF 和 24 张 PNG，并能在网页查看。</li>
+<li><input disabled="" type="checkbox"> 已了解每天只需要启动两个服务，不需要重新安装或初始化。</li>
+</ul>
+<p>做到这里，首次安装和两条示例使用流程完成。在线模式需要另行具备 GEE 网络、账号权限与完整处理数据，不属于离线示例的成功条件。</p>
+<h2 id="section-79">18. 无高德底图时</h2>
+<p>Explore 的彩色 PNG 独立于高德图层加载。高德不可用、脚本一直等待或底图瓦片断网时，仍可显示本地产品并切换 82/83 项目和日期。本机前后端服务仍须保持运行。
+高德脚本未加载时仍可在本地 PNG 上点选，选点圆圈显示在彩色产品上方；上传 SHP 文件或输入 WGS84 坐标确定区域也不依赖底图，在线和离线流程仍可使用。在线下载影像仍须能连接 GEE。</p>
+<p>发布目录上级 <code>data/fieldmoist_test82_data.zip</code> 包含 82 的 37 个输入及 NASA 文件，不包含旧结果或周期缓存。<code>fieldmoist_jiefangzha83_data.zip</code> 包含 83 展示数据及 NASA 缓存；<code>fieldmoist_online_data.zip</code> 包含在线解算辅助数据。三个包均解压到 <code>public/backend/media</code>，包内目录直接合并进去，不要多套一层压缩包名称。</p>
+<p>已有完整输入的用户无需重新解压数据包；更新代码后启动 test 会自动清理旧生成物。NASA 缓存按网格与日期范围复用，未覆盖的区域和日期仍需联网下载。</p>
+</main></div>
+<footer>示例根目录：C:\FieldMoist。数据和账号由提供者另行提供。仅作技术参考，不授予许可。</footer></body></html>

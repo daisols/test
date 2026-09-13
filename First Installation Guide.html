@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FieldMoist First Installation Guide</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#20252b;font-family:"Microsoft YaHei","Segoe UI",sans-serif;font-size:16px;line-height:1.85;letter-spacing:0}header{background:#193d31;color:white;padding:18px 28px;border-bottom:4px solid #b64646}header strong{font-size:24px}header p{margin:4px 0 0;font-size:14px}.layout{display:grid;grid-template-columns:270px minmax(0,970px);max-width:1320px;margin:auto}nav{padding:26px 20px;border-right:1px solid #ddd;position:sticky;top:0;max-height:100vh;overflow:auto;align-self:start;font-size:14px}nav a{display:block;padding:5px 0;text-decoration:none;color:#265747}main{padding:30px 40px;min-width:0}h1{font-size:30px;line-height:1.4}h2{font-size:23px;margin-top:48px;border-bottom:2px solid #a5bcb2;padding-bottom:12px;scroll-margin-top:20px}h3{font-size:19px;margin-top:28px;scroll-margin-top:20px}a{color:#155b83;overflow-wrap:anywhere}p,li,td,th{overflow-wrap:anywhere}li{margin:5px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f5f7;border-left:4px solid #56788b;padding:16px;font-size:14px;line-height:1.6}code{font-family:Consolas,"Microsoft YaHei",monospace;font-size:0.93em}p code,li code,td code{background:#f1f3f4;padding:1px 3px}table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;margin:20px 0}th{background:#e9f0ed;text-align:left}td,th{border:1px solid #cad2cf;padding:10px;vertical-align:top}strong{font-weight:700}.note{border-bottom:1px solid #ddd;padding-bottom:16px;color:#4b555c;font-size:14px}input[type=checkbox]{width:16px;height:16px}footer{padding:24px 40px;border-top:1px solid #ddd;color:#555}@media(max-width:850px){.layout{display:block}nav{position:static;max-height:280px;border-right:0;border-bottom:1px solid #ddd}main{padding:20px}h1{font-size:26px}header{padding:16px 20px}table{font-size:13px}td,th{padding:7px}}@media print{header,nav,.note,footer{display:none}.layout{display:block}main{padding:0;max-width:none}body{font-size:11pt;line-height:1.65}h1{font-size:22pt}h2{font-size:16pt;break-after:avoid}h3{font-size:13pt;break-after:avoid}pre{font-size:9pt}table{font-size:9pt}tr{break-inside:avoid}a{color:inherit}h2{margin-top:22px}p{orphans:3;widows:3}}</style></head><body><header><strong>FieldMoist</strong><p>Windows First Installation Guide - public / private release</p></header>
+<div class="layout"><nav aria-label="Contents"><strong>Contents</strong><a href="#section-2">Contents</a><a href="#section-3">1. Before Starting</a><a href="#section-7">2. Folders, Filenames and Command Windows</a><a href="#section-11">3. Extract the Public and Private Files</a><a href="#section-14">4. Install Miniconda and Node.js</a><a href="#section-17">5. Create the FieldMoist Environment</a><a href="#section-20">6. Install the Private Compiled Core</a><a href="#section-23">7. Data Checklist and Exact Locations</a><a href="#section-29">8. Configure the Backend and Frontend</a><a href="#section-33">9. Check Data and Initialize the Database</a><a href="#section-38">10. Install the Frontend Dependencies</a><a href="#section-39">11. Start Both Services and Open the Website</a><a href="#section-43">12. Check the Jiefangzha Display</a><a href="#section-44">13. Run the Offline Test</a><a href="#section-49">14. Shut Down and Start Again Later</a><a href="#section-53">15. Optional GEE Authentication and Online Processing</a><a href="#section-58">16. Troubleshooting</a><a href="#section-78">17. First-Installation Checklist</a><a href="#section-79">18. Operation Without an AMap Basemap</a></nav><main><p class="note">Open this file directly; no server is needed. Use Ctrl+P to print or save as PDF. <a href="DATA_INVENTORY.csv">Per-file data inventory (CSV)</a>. <a href="首次安装指导.html">Chinese edition</a>.</p><h1 id="section-1">FieldMoist First Installation Guide</h1>
+<p>Language: English | <a href="首次安装指导.md">Chinese</a>. A printable <a href="First Installation Guide.html">HTML edition</a> is included and can be opened by double-clicking it.</p>
+<p>This manual describes the technical setup for Windows users without programming experience. It is reference documentation only. FieldMoist is displayed with all rights reserved; <a href="LICENSE">LICENSE</a> grants no permission to run, copy, modify or redistribute the project. Receiving files or reading these instructions does not grant those rights.</p>
+<p>The steps describe the matching <code>public</code> application, <code>private</code> Windows compiled core and separately supplied data. They first cover viewing <strong>jiefangzha</strong>, then running the local <strong>test</strong>, and finally optional online processing. Do not mix releases. Public code, private compiled files and data are separate deliveries; receiving one does not imply that the others are included.</p>
+<h2 id="section-2">Contents</h2>
+<ol>
+<li>Before starting</li>
+<li>Folders, filenames and command windows</li>
+<li>Extract the public and private files</li>
+<li>Install Miniconda and Node.js</li>
+<li>Create the FieldMoist environment</li>
+<li>Install the private compiled core</li>
+<li>Data checklist and exact locations</li>
+<li>Configure the backend and frontend</li>
+<li>Check data and initialize the database</li>
+<li>Install the frontend dependencies</li>
+<li>Start both services and open the website</li>
+<li>Check the jiefangzha display</li>
+<li>Run the offline test</li>
+<li>Shut down and start again later</li>
+<li>Optional GEE authentication and online processing</li>
+<li>Troubleshooting</li>
+<li>First-installation checklist</li>
+<li>Operation without an AMap basemap</li>
+</ol>
+<h2 id="section-3">1. Before Starting</h2>
+<h3 id="section-4">1.1 Files to obtain from the project provider</h3>
+<table>
+<thead><tr>
+<th>Item</th>
+<th>Expected contents</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public application folder or ZIP</td>
+<td><code>backend</code>, <code>frontend</code>, <code>tools</code>, <code>environment.yml</code></td>
+<td>Website and backend application</td>
+</tr>
+<tr>
+<td>Matching private folder or ZIP</td>
+<td><code>backend</code>, <code>LICENSE.txt</code>, <code>README.md</code></td>
+<td>Compiled algorithms required by the backend</td>
+</tr>
+<tr>
+<td><code>fieldmoist_jiefangzha83_data.zip</code></td>
+<td>Boundary, 24 TIFFs, 24 PNGs, NASA cache</td>
+<td>Existing project 83 display</td>
+</tr>
+<tr>
+<td><code>fieldmoist_test82_data.zip</code></td>
+<td>Test boundary, 24 SMAP TIFFs, two moisture TIFFs, Excel measurements, shared model, NASA cache</td>
+<td>Local project 82 calculation</td>
+</tr>
+<tr>
+<td><code>fieldmoist_online_data.zip</code>, optional initially</td>
+<td>Models, mask and soil-property rasters</td>
+<td>Processing raw satellite imagery</td>
+</tr>
+<tr>
+<td>AMap browser credentials, optional</td>
+<td>JavaScript API key and matching security code</td>
+<td>Satellite and standard basemaps</td>
+</tr>
+</tbody>
+</table>
+<p>Code, compiled algorithms and data are separate deliveries. One does not imply the others are included. The private repository requires repository access arranged by the provider. Repository access is distinct from copyright permission.</p>
+<p>Use the actual download links, external drive or shared folder supplied by the provider. This manual does not invent a data download address. Obtain missing files before continuing.</p>
+<h3 id="section-5">1.2 Computer requirements</h3>
+<ol>
+<li>Open Windows <strong>Start</strong>, then <strong>Settings</strong>.</li>
+<li>Open <strong>System</strong>, then <strong>About</strong>.</li>
+<li>Find <strong>System type</strong>. It must say a 64-bit operating system and an x64-based processor.</li>
+<li>Windows ARM, 32-bit Windows, macOS and Linux cannot load these compiled files.</li>
+</ol>
+<p>Use Windows 10 or 11, preferably at least 16 GB RAM. Reserve at least 40 GB on the project drive and approximately 10 GB on the system drive for installation. These are preparation recommendations for the examples, not guaranteed minimum requirements. Large research datasets need additional space.</p>
+<p>Software installation and dependency downloads require internet access. After installation, local products and the supplied test can work without GEE. Missing NASA cache cells and online satellite downloads still require internet access. AMap is optional for the colored product display.</p>
+<h3 id="section-6">1.3 Example location used throughout this manual</h3>
+<pre><code class="lang-text">C:\FieldMoist\
+    public\
+    private\
+</code></pre>
+<p>Press <strong>Win+E</strong> to open File Explorer. Open <strong>This PC</strong>, then drive C:. Right-click an empty space, choose <strong>New &gt; Folder</strong>, type <code>FieldMoist</code>, and press Enter.</p>
+<p>If C: has insufficient space, use another local drive, such as <code>D:\FieldMoist</code>. Replace every example <code>C:\FieldMoist</code> path consistently. Avoid running inside a ZIP, USB drive, network share or automatically synchronized cloud folder. Copy the release to a local disk first.</p>
+<h2 id="section-7">2. Folders, Filenames and Command Windows</h2>
+<h3 id="section-8">2.1 What a path means</h3>
+<p><code>C:\FieldMoist\public\backend</code> means drive C:, then the FieldMoist folder, then public, then backend. You can paste a complete path into File Explorer's address bar and press Enter.</p>
+<h3 id="section-9">2.2 Show file extensions and hidden files</h3>
+<ul>
+<li>Windows 11: choose <strong>View &gt; Show &gt; File name extensions</strong> and <strong>Hidden items</strong>.</li>
+<li>Windows 10: open the <strong>View</strong> tab and select <strong>File name extensions</strong> and <strong>Hidden items</strong>.</li>
+</ul>
+<p>The suffix identifies the file type: <code>.py</code>, <code>.pyd</code>, <code>.tif</code>, <code>.png</code>, <code>.xlsx</code>. Configuration filenames must be exactly <code>.env</code>, not <code>.env.txt</code>.</p>
+<h3 id="section-10">2.3 Which command window to use</h3>
+<p>This manual uses <strong>Anaconda Prompt</strong>, available after installing Miniconda. Open Start, search for <code>Anaconda Prompt</code>, and click it. Commands labeled <code>bat</code> below are for this window. They also avoid PowerShell's <code>npm.ps1</code> policy issue.</p>
+<p>Copy only the command inside a code block. Do not copy the surrounding explanation, the <code>(FieldMoist)</code> prompt, <code>C:\...&gt;</code> or Markdown backticks. Paste one command, press Enter, and wait for it to finish before entering the next. Ordinary commands finish when the prompt returns. Servers are different: their windows stay occupied while they run.</p>
+<p>This manual standardizes on Anaconda Prompt (CMD-style). If you use PowerShell, adapt <code>cd /d</code> and <code>copy</code> to that shell or reopen Anaconda Prompt; do not paste CMD commands into a Python <code>&gt;&gt;&gt;</code> window.</p>
+<h2 id="section-11">3. Extract the Public and Private Files</h2>
+<h3 id="section-12">3.1 Public application</h3>
+<ol>
+<li>Find the downloaded public ZIP in File Explorer.</li>
+<li>Right-click it and choose <strong>Extract All</strong>.</li>
+<li>Wait until extraction is finished.</li>
+<li>Open the extracted folder until you can see <code>backend</code>, <code>frontend</code>, <code>tools</code> and <code>environment.yml</code> together.</li>
+<li>Put those contents directly inside <code>C:\FieldMoist\public</code>.</li>
+</ol>
+<p>The following files must exist:</p>
+<pre><code class="lang-text">C:\FieldMoist\public\environment.yml
+C:\FieldMoist\public\backend\manage.py
+C:\FieldMoist\public\frontend\package.json
+C:\FieldMoist\public\tools\install_core.py
+</code></pre>
+<p>An extra layer such as <code>public\public\backend</code> or <code>public\FieldMoist-main\backend</code> is incorrect. Move the contents of that extra inner folder up one level.</p>
+<h3 id="section-13">3.2 Private compiled files</h3>
+<p>Extract the matching private ZIP. Put the level containing <code>backend</code> and <code>LICENSE.txt</code> directly inside <code>C:\FieldMoist\private</code>.</p>
+<pre><code class="lang-text">C:\FieldMoist\private\LICENSE.txt
+C:\FieldMoist\private\backend\service\transform_tif\_native\win_amd64_cp312\manifest.json
+</code></pre>
+<p>The <code>win_amd64_cp312</code> directory contains <code>function1</code>, <code>function2</code>, <code>function3</code>, <code>predeal</code> and <code>manifest.json</code>. Each package contains <code>.pyd</code> files and an empty <code>__init__.py</code>.</p>
+<p>Do not double-click a <code>.pyd</code>, rename it, change its extension to <code>.py</code>, or replace the public backend folder with the private backend folder. The installer copies only the required compiled files to the correct location.</p>
+<h2 id="section-14">4. Install Miniconda and Node.js</h2>
+<p>Skip installation if these tools already work, but check their versions. A separate system Python installation is unnecessary.</p>
+<h3 id="section-15">4.1 Miniconda</h3>
+<ol>
+<li>Visit <a href="https://www.anaconda.com/docs/getting-started/miniconda/install">https://www.anaconda.com/docs/getting-started/miniconda/install</a>.</li>
+<li>Download the Windows x64 installer, not ARM, Linux or macOS.</li>
+<li>Double-click the installer.</li>
+<li>Read its terms and decide whether to accept them.</li>
+<li><strong>Just Me</strong> and the default installation directory are generally sufficient.</li>
+<li>Keep the recommended options; manually changing the system Python or PATH is unnecessary.</li>
+<li>Finish the installation and open <strong>Anaconda Prompt</strong> from Start.</li>
+<li>Run:</li>
+</ol>
+<pre><code class="lang-bat">conda --version
+</code></pre>
+<p>A version number indicates that Conda is available. The base environment may use a different Python version; the dedicated project environment will use Python 3.12.</p>
+<h3 id="section-16">4.2 Node.js</h3>
+<ol>
+<li>Visit <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>.</li>
+<li>Select a Windows x64 <code>.msi</code> installer. Node.js 22 LTS, version 22.12 or newer, is recommended.</li>
+<li>Run the installer and review its terms.</li>
+<li>Keep npm selected. Extra native compiler tools are not required for this frontend.</li>
+<li>Close and reopen Anaconda Prompt after installation.</li>
+<li>Run these commands separately:</li>
+</ol>
+<pre><code class="lang-bat">node --version
+</code></pre>
+<pre><code class="lang-bat">npm --version
+</code></pre>
+<p>Both must print versions. Do not type only <code>node</code>, which opens an interactive JavaScript prompt; press Ctrl+C twice if you enter it accidentally.</p>
+<h2 id="section-17">5. Create the FieldMoist Environment</h2>
+<h3 id="section-18">5.1 Open the public application directory</h3>
+<p>In Anaconda Prompt:</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+</code></pre>
+<p><code>cd</code> changes directory; <code>/d</code> also changes drive if needed. Check that the environment file is present:</p>
+<pre><code class="lang-bat">dir environment.yml
+</code></pre>
+<p>If the file is not found, correct the extraction layout before continuing.</p>
+<h3 id="section-19">5.2 Create and activate the environment</h3>
+<pre><code class="lang-bat">conda env create -f environment.yml
+</code></pre>
+<p>This downloads and installs dependencies and can take several minutes or longer. Keep the window open. Review any third-party terms or confirmation prompts before responding.</p>
+<p>After creation finishes:</p>
+<pre><code class="lang-bat">conda activate FieldMoist
+</code></pre>
+<p>The left side of the prompt must show <code>(FieldMoist)</code>. Verify:</p>
+<pre><code class="lang-bat">python --version
+</code></pre>
+<pre><code class="lang-bat">python -c &quot;import platform; print(platform.machine())&quot;
+</code></pre>
+<p>Expected results are <code>Python 3.12.x</code> and <code>AMD64</code>. Do not continue with Python 3.13, 3.14, ARM or 32-bit Python. The compiled modules are specific to Windows x64 CPython 3.12.</p>
+<p><code>FieldMoist</code> is the new environment name. <code>SoilMoisturePlatform</code> is the maintainer's older environment and does not need to be created. If FieldMoist already exists, activate and check it instead of deleting it. Keep the environment activated for all Python commands; this also makes Conda's native libraries available.</p>
+<h2 id="section-20">6. Install the Private Compiled Core</h2>
+<p>Stay in <code>C:\FieldMoist\public</code> with <code>(FieldMoist)</code> active:</p>
+<pre><code class="lang-bat">python tools/install_core.py --from-dir C:\FieldMoist\private
+</code></pre>
+<p>Expected success message:</p>
+<pre><code class="lang-text">Windows core installed. Run python tools/smoke_native_core.py next.
+</code></pre>
+<p><code>The matching core is already installed.</code> is also a successful result.</p>
+<h3 id="section-21">6.1 What the installer copies</h3>
+<table>
+<thead><tr>
+<th>Source</th>
+<th>Destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>C:\FieldMoist\private\backend\service\transform_tif\_native\win_amd64_cp312</code></td>
+<td><code>C:\FieldMoist\public\backend\service\transform_tif\_native\win_amd64_cp312</code></td>
+</tr>
+<tr>
+<td><code>C:\FieldMoist\private\LICENSE.txt</code></td>
+<td><code>C:\FieldMoist\public\backend\service\transform_tif\CORE_LICENSE.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>There must be 26 <code>.pyd</code> modules in total, four empty package initializers and a manifest. Representative paths after installation are:</p>
+<pre><code class="lang-text">backend\service\transform_tif\_native\win_amd64_cp312\function1\pipeline.cp312-win_amd64.pyd
+backend\service\transform_tif\_native\win_amd64_cp312\function2\pipeline.cp312-win_amd64.pyd
+backend\service\transform_tif\_native\win_amd64_cp312\function3\fusion_pipeline.cp312-win_amd64.pyd
+backend\service\transform_tif\_native\win_amd64_cp312\predeal\pipeline.cp312-win_amd64.pyd
+</code></pre>
+<p>These are examples, not the complete module list. Do not edit <code>manifest.json</code>, which contains integrity hashes.</p>
+<h3 id="section-22">6.2 Check module loading</h3>
+<pre><code class="lang-bat">python tools/smoke_native_core.py
+</code></pre>
+<p>Expected final message:</p>
+<pre><code class="lang-text">26 native imports and Windows worker checks passed.
+</code></pre>
+<p>If this fails, stop and check the private release version and Python architecture. Users do not need Cython or a compiler.</p>
+<h2 id="section-23">7. Data Checklist and Exact Locations</h2>
+<p>All supplied data belongs inside <strong><code>C:\FieldMoist\public\backend\media</code></strong>. Do not put it in <code>private</code>, the public root, or an extra nested <code>media</code> folder.</p>
+<h3 id="section-24">7.1 Extract the three data packages</h3>
+<table>
+<thead><tr>
+<th>ZIP</th>
+<th>Extract into</th>
+<th>Required for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fieldmoist_jiefangzha83_data.zip</code></td>
+<td><code>C:\FieldMoist\public\backend\media</code></td>
+<td>Existing jiefangzha display and cached point weather</td>
+</tr>
+<tr>
+<td><code>fieldmoist_test82_data.zip</code></td>
+<td>The same media folder</td>
+<td>Local test calculation and cached point weather</td>
+</tr>
+<tr>
+<td><code>fieldmoist_online_data.zip</code></td>
+<td>The same media folder</td>
+<td>Processing raw satellite inputs, including online projects</td>
+</tr>
+</tbody>
+</table>
+<p>Merge the directories already inside each ZIP directly into media. Do not add a folder named after the ZIP. The 82 package contains 37 original input, shared-model and NASA cache files; it excludes old results and cycle caches. Its compressed size is 9,638,255 bytes and extracted size is 257,205,058 bytes in the current delivery.</p>
+<h3 id="section-25">7.2 Project 83: existing display data</h3>
+<p>All table paths below are relative to <code>C:\FieldMoist\public\backend\media</code>.</p>
+<table>
+<thead><tr>
+<th>Files</th>
+<th>Count</th>
+<th>Relative location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shapefile components</td>
+<td>Four required plus supplied <code>.cpg</code></td>
+<td><code>images\83\shp\shp.shp</code>, <code>shp.shx</code>, <code>shp.dbf</code>, <code>shp.prj</code>, <code>shp.cpg</code></td>
+</tr>
+<tr>
+<td>Daily soil moisture TIFFs</td>
+<td>24</td>
+<td><code>images\83\2018-05-01_2018-05-24\soil_moisture_result\2018-05-01.tif</code> through <code>2018-05-24.tif</code></td>
+</tr>
+<tr>
+<td>Daily display PNGs</td>
+<td>24</td>
+<td><code>images\83\2018-05-01_2018-05-24\soil_moisture_png\2018-05-01.png</code> through <code>2018-05-24.png</code></td>
+</tr>
+<tr>
+<td>NASA cache responses</td>
+<td>Five supplied JSON files</td>
+<td><code>images\83\2018-05-01_2018-05-24\nasa_power\</code></td>
+</tr>
+</tbody>
+</table>
+<p>There is one TIFF and one PNG for each day from May 1 through May 24, 2018. Do not add <code>(1)</code>, <code>copy</code> or other text to filenames. Shapefile components must have the same base name and stay together; a <code>.shp</code> file alone is insufficient.</p>
+<h3 id="section-26">7.3 Project 82: test inputs</h3>
+<table>
+<thead><tr>
+<th>Files</th>
+<th>Count</th>
+<th>Relative location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test boundary components</td>
+<td>Four required plus supplied <code>.cpg</code></td>
+<td><code>images\82\shp\shp.shp</code>, <code>shp.shx</code>, <code>shp.dbf</code>, <code>shp.prj</code>, <code>shp.cpg</code></td>
+</tr>
+<tr>
+<td>Daily SMAP TIFFs</td>
+<td>24</td>
+<td><code>images\82\offline\smap\SMAP_2018-05-01.tif</code> through <code>SMAP_2018-05-24.tif</code></td>
+</tr>
+<tr>
+<td>Precomputed soil moisture</td>
+<td>Two TIFFs</td>
+<td><code>images\82\82\local_soil_moisture\soil_moisture_2018-05-11.tif</code> and <code>soil_moisture_2018-05-23.tif</code></td>
+</tr>
+<tr>
+<td>Station measurements</td>
+<td>One XLSX</td>
+<td><code>images\82\82\measurements\measurements.xlsx</code></td>
+</tr>
+<tr>
+<td>Shared model</td>
+<td>One PKL</td>
+<td><code>images\82\2018-05-01_2018-05-24\process\shared_ml_model_rf.pkl</code></td>
+</tr>
+<tr>
+<td>NASA cache responses</td>
+<td>Four supplied JSON files</td>
+<td><code>images\82\2018-05-01_2018-05-24\nasa_power\</code></td>
+</tr>
+</tbody>
+</table>
+<p>The repeated <strong><code>82\82</code> is correct</strong>. Do not remove either level. Project 83 and project 82 use different boundary folders. The test preset needs no manual Sentinel-1/Sentinel-2 uploads and no GEE authentication.</p>
+<p>Keep the provided measurement workbook, including its <code>lon</code> and <code>lat</code> columns, unchanged. Do not convert it to CSV. The <code>.pkl</code> model is data, whereas <code>.pyd</code> files are compiled code; neither substitutes for the other. Use the matching model and input version, not a different model with the same name.</p>
+<p>Do not add old <code>process\cycles</code>, <code>.stage1.complete</code>, <code>.stage2.complete</code>, <code>.fusion.complete</code> or generated test products to a fresh input delivery. Keep <code>shared_ml_model_rf.pkl</code>. Auxiliary files such as <code>.enp</code>, <code>.ebb</code>, <code>.ed1</code>, <code>.eq1</code> and <code>.qtr</code> are not required and do not replace TIFFs or shapefiles.</p>
+<h3 id="section-27">7.4 Check the complete layout</h3>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\
+  images\
+    83\
+      shp\                    (shp.shp, shp.shx, shp.dbf, shp.prj, shp.cpg)
+      2018-05-01_2018-05-24\
+        soil_moisture_result\ (24 dated TIFFs)
+        soil_moisture_png\    (24 dated PNGs)
+        nasa_power\           (five supplied JSON responses)
+    82\
+      shp\                    (shp.shp, shp.shx, shp.dbf, shp.prj, shp.cpg)
+      offline\smap\           (24 SMAP_YYYY-MM-DD.tif files)
+      82\
+        local_soil_moisture\  (the May 11 and May 23 TIFFs)
+        measurements\measurements.xlsx
+      2018-05-01_2018-05-24\
+        process\shared_ml_model_rf.pkl
+        nasa_power\           (four supplied JSON responses)
+</code></pre>
+<p>Parenthesized text explains the contents; do not create files with those names.</p>
+<p>If a provider's outer folder is <code>media</code>, copy its contents into the target media folder. If the outer folder is <code>images</code>, put that folder in media. If only <code>82</code> and <code>83</code> are present, put them inside <code>media\images</code>.</p>
+<p>Correct example:</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\images\83\shp\shp.shp
+</code></pre>
+<p>Incorrect examples:</p>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\media\images\83\shp\shp.shp
+C:\FieldMoist\public\images\83\shp\shp.shp
+C:\FieldMoist\private\backend\media\images\83\shp\shp.shp
+</code></pre>
+<p>The <a href="DATA_INVENTORY.csv">per-file inventory</a> lists names, target paths and baseline sizes. It contains 95 files, including both <code>.cpg</code> files and nine NASA responses, totaling 3,250,551,078 bytes (about 3.03 GiB). This excludes installed software, intermediate calculations and new results. Do not reserve only 3 GB.</p>
+<p>If Windows asks to replace files, confirm that you are not overwriting an existing project's data. A first installation should use a fresh directory.</p>
+<h3 id="section-28">7.5 Additional data for raw satellite processing</h3>
+<p>The online package supplies these paths relative to media:</p>
+<table>
+<thead><tr>
+<th>File</th>
+<th>Relative path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAI model</td>
+<td><code>model\model_LAI.pkl</code></td>
+</tr>
+<tr>
+<td>ALA model</td>
+<td><code>model\model_ALA.pkl</code></td>
+</tr>
+<tr>
+<td>CWC model</td>
+<td><code>model\model_CWC.pkl</code></td>
+</tr>
+<tr>
+<td>AIEM-Dobson model</td>
+<td><code>model\AIEM_Dobson.pkl</code></td>
+</tr>
+<tr>
+<td>Coarse reference raster</td>
+<td><code>mask_tif\coarse.tif</code></td>
+</tr>
+<tr>
+<td>Clay raster</td>
+<td><code>Clay_Sand_RongZhong_tifs\Clay.tif</code></td>
+</tr>
+<tr>
+<td>Sand raster</td>
+<td><code>Clay_Sand_RongZhong_tifs\Sand.tif</code></td>
+</tr>
+<tr>
+<td>Bulk density raster</td>
+<td><code>Clay_Sand_RongZhong_tifs\RongZhong.tif</code></td>
+</tr>
+</tbody>
+</table>
+<p>These files are not needed for the bundled direct-moisture test. They are needed when processing raw satellite imagery. Coverage, CRS and model version must match the intended calculation. Never create an empty placeholder to silence a missing-file error. GEE authentication does not download these local models automatically.</p>
+<h2 id="section-29">8. Configure the Backend and Frontend</h2>
+<h3 id="section-30">8.1 Create the two configuration files once</h3>
+<p>In <code>C:\FieldMoist\public</code>, run separately:</p>
+<pre><code class="lang-bat">copy .env.example .env
+</code></pre>
+<pre><code class="lang-bat">copy frontend\.env.example frontend\.env
+</code></pre>
+<p>If asked to overwrite an existing file, answer <strong>N</strong> until you have checked and backed up your existing configuration.</p>
+<ul>
+<li><code>C:\FieldMoist\public\.env</code> configures the backend.</li>
+<li><code>C:\FieldMoist\public\frontend\.env</code> configures the frontend.</li>
+</ul>
+<h3 id="section-31">8.2 Backend settings</h3>
+<pre><code class="lang-bat">notepad .env
+</code></pre>
+<p>For local operation, retain:</p>
+<pre><code class="lang-ini">DJANGO_DEBUG=true
+DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
+CORS_ALLOWED_ORIGINS=http://127.0.0.1:5173,http://localhost:5173
+DB_ENGINE=sqlite
+</code></pre>
+<p>SQLite creates its own database file and requires no MySQL server or password. Generate a backend secret in the activated prompt:</p>
+<pre><code class="lang-bat">python -c &quot;import secrets; print(secrets.token_urlsafe(48))&quot;
+</code></pre>
+<p>Copy the printed random string into <code>.env</code> after <code>DJANGO_SECRET_KEY=</code>. Keep the key name and equals sign. Do not copy the command prompt itself. Press Ctrl+S and close Notepad.</p>
+<p>For the first offline test, leave GEE settings empty and retain the default media location and processing mode. Do not remove comment markers from <code>FIELD_MOIST_MEDIA_ROOT</code> or <code>FIELDMOIST_G_*</code> unless intentionally configuring those options.</p>
+<h3 id="section-32">8.3 Frontend settings</h3>
+<pre><code class="lang-bat">notepad frontend\.env
+</code></pre>
+<p>Use this API address for the local backend:</p>
+<pre><code class="lang-ini">VITE_API_BASE_URL=http://127.0.0.1:8000/
+</code></pre>
+<p>For an optional basemap, enter the actual provider-issued values for <code>VITE_AMAP_KEY</code> and <code>VITE_AMAP_SECURITY_CODE</code>. Obtain a <strong>Web / JavaScript API</strong> key, not a Web Service or mobile-app key, from <a href="https://lbs.amap.com/">https://lbs.amap.com/</a>. Restrict it to the local hostnames/origins required by AMap, including localhost and 127.0.0.1 where applicable.</p>
+<p>Without valid AMap credentials, local colored PNGs and point selection can still work, but the satellite/standard background will be absent. Save the file using Ctrl+S and confirm it is named <code>.env</code>, not <code>.env.txt</code>. Restart the relevant service after editing its configuration.</p>
+<h2 id="section-33">9. Check Data and Initialize the Database</h2>
+<h3 id="section-34">9.1 Validate the data files</h3>
+<p>Keep <code>(FieldMoist)</code> active in the public directory. Run each command separately:</p>
+<pre><code class="lang-bat">python backend/manage.py validate_fieldmoist_data --dataset all
+</code></pre>
+<p>Expected: <code>all dataset validation passed.</code> If files are missing or invalid, fix the exact reported paths before continuing.</p>
+<h3 id="section-35">9.2 Create the database tables</h3>
+<pre><code class="lang-bat">python backend/manage.py migrate
+</code></pre>
+<p>Migration creates the database tables. A new database prints multiple <code>Applying ... OK</code> lines. Later it can print <code>No migrations to apply</code>.</p>
+<h3 id="section-36">9.3 Register the jiefangzha display data</h3>
+<pre><code class="lang-bat">python backend/manage.py seed_fieldmoist
+</code></pre>
+<p><strong>Do not skip seed_fieldmoist.</strong> Migration creates tables; the seed command registers the jiefangzha display project from the supplied files. Without registration, Explore may report no matching polygon despite a successful environment and data check. The command does not delete other study areas.</p>
+<h3 id="section-37">9.4 Check the backend configuration</h3>
+<pre><code class="lang-bat">python backend/manage.py check
+</code></pre>
+<p>Expected: <code>System check identified no issues</code>. Do not copy the maintainer's old database into a fresh installation. You do not need a Django administrator account for these example workflows.</p>
+<h2 id="section-38">10. Install the Frontend Dependencies</h2>
+<p>From the public directory:</p>
+<pre><code class="lang-bat">npm ci --prefix frontend
+</code></pre>
+<p>Then:</p>
+<pre><code class="lang-bat">npm run build --prefix frontend
+</code></pre>
+<p>The first command downloads the locked JavaScript dependencies. The second checks the production build. A Vite message about chunks larger than 500 kB is a warning; a final successful <code>built</code> message means the build completed. <code>vite</code> not found usually means npm installation did not finish in this project directory.</p>
+<p>Do not automatically run <code>npm audit fix --force</code>, which can change dependency versions.</p>
+<h2 id="section-39">11. Start Both Services and Open the Website</h2>
+<h3 id="section-40">11.1 Window A: backend</h3>
+<p>Open Anaconda Prompt and run:</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+conda activate FieldMoist
+python backend/manage.py runserver 127.0.0.1:8000 --noreload
+</code></pre>
+<p>The backend should print <code>Starting development server at http://127.0.0.1:8000/</code>. Leave this window open. It is normal that the prompt does not return.</p>
+<h3 id="section-41">11.2 Window B: frontend</h3>
+<p>Open a second Anaconda Prompt. Do not type frontend commands into the running backend window.</p>
+<pre><code class="lang-bat">cd /d C:\FieldMoist\public
+conda activate FieldMoist
+npm run dev --prefix frontend -- --host 127.0.0.1 --port 5173 --strictPort
+</code></pre>
+<p>Leave this window open too. Its local address should use port 5173. If that port is occupied, stop the older known frontend process or have the provider configure another matching frontend port and CORS setting; do not silently use a different port.</p>
+<h3 id="section-42">11.3 Open the website</h3>
+<p>Open your browser and type <a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a> in the address bar. Use <code>http</code>, not <code>https</code>. Do not double-click <code>frontend\index.html</code> to run the application.</p>
+<p>Check <a href="http://127.0.0.1:8000/api/health/">http://127.0.0.1:8000/api/health/</a> in another tab. A successful response with status <code>ok</code> confirms that the API is reachable. A backend root URL without an application page is not itself an error; use the frontend URL for the website.</p>
+<h2 id="section-43">12. Check the Jiefangzha Display</h2>
+<p>Explore should show:</p>
+<ul>
+<li>Project name <strong>jiefangzha</strong>, dataset ID 83 and 24 daily products.</li>
+<li>An initial date of 2018-05-01 and a colored soil moisture PNG.</li>
+<li>A color scale from 0.00 to 0.40 m3/m3.</li>
+<li>Working previous/next-date controls and GeoTIFF download.</li>
+</ul>
+<p>AMap may show a satellite or standard basemap when credentials and connectivity are available. <code>Basemap unavailable</code> does not mean the local soil moisture product should disappear.</p>
+<p>Enable <strong>Point analysis</strong>, then click inside the colored region. The circle should appear above the image. For covered points and dates, NASA data loads from the local cache. A request outside the supplied cache coverage still needs internet access. Changing dates retains the selected point; switching projects clears it.</p>
+<p>If there is no matching polygon, verify that <code>seed_fieldmoist</code> ran successfully against the same backend database and media directory used by the running server.</p>
+<h2 id="section-44">13. Run the Offline Test</h2>
+<h3 id="section-45">13.1 Load and run the preset</h3>
+<ol>
+<li>Keep both service windows open.</li>
+<li>Select <strong>Generate</strong> in the top navigation.</li>
+<li>Select <strong>Offline</strong> under <strong>Processing mode</strong>.</li>
+<li>Enter lowercase <code>test</code> in <strong>Area name</strong>, without quotes or spaces.</li>
+<li>Click outside the input and wait for the preset to load.</li>
+<li>Confirm the boundary and dates were filled automatically: 2018-05-01 through 2018-05-24.</li>
+<li>When <code>Offline test dataset is ready. Click Start generation.</code> appears, click <strong>Start generation</strong>.</li>
+<li>Wait for <strong>Completed</strong> and 100 percent.</li>
+<li>Click <strong>View generated result</strong> to inspect the result in Explore.</li>
+</ol>
+<p>Do not upload additional SMAP, Sentinel, boundary or measurement files for the preset. Do not change its dates or change project 82 to 83.</p>
+<h3 id="section-46">13.2 Normal behavior while calculating</h3>
+<p>The backend prints at most a short message for each major stage: loading data, preprocessing imagery, computing moisture, generating colored products and completion. Per-file progress bars and internal computation details are hidden. A quiet window is normal and does not mean processing stopped.</p>
+<p>CPU and memory use may rise. The website progress advances by stages, not necessarily every second. Recent test runs on the maintainer's computer took about two minutes; slower computers can take longer.</p>
+<p>Do not let the computer sleep, close the backend or submit another test during computation. Wait while the task remains active.</p>
+<h3 id="section-47">13.3 Result locations</h3>
+<pre><code class="lang-text">C:\FieldMoist\public\backend\media\images\82\2018-05-01_2018-05-24\soil_moisture_result\
+C:\FieldMoist\public\backend\media\images\82\2018-05-01_2018-05-24\soil_moisture_png\
+</code></pre>
+<p>The first directory should contain 24 dated TIFFs; the second should contain 24 matching PNGs. Intermediate files appear under <code>process</code>; do not move them while the task runs.</p>
+<p><code>ml_patch_report.xlsx</code> is <strong>not generated by default</strong>. The station measurement workbook is still required as input. Absence of an output report does not mean the station correction step was skipped.</p>
+<p>These paths describe the supplied fresh setup. A database imported from another installation can have different records; do not manually renumber database entries.</p>
+<h3 id="section-48">13.4 Rerun or update</h3>
+<p>Use <strong>Run test again</strong> for another run. Every test start, including retries, removes generated preprocessing copies, cycle caches, completion markers and old test TIFF/PNG outputs, then recomputes from original inputs. It preserves SMAP inputs, supplied moisture TIFFs, Excel, SHP, the shared model and NASA caches. Copy previous results outside the project before rerunning if you need to retain them. Other projects keep their existing resume behavior.</p>
+<p>For a release update, stop the backend, update matching public and private program files, retain your data and <code>.env</code> files, and run from public:</p>
+<pre><code class="lang-bat">conda activate FieldMoist
+python tools/install_core.py --from-dir ..\private --upgrade
+python tools/smoke_native_core.py
+npm run build --prefix frontend
+</code></pre>
+<p>Restart both services and refresh the browser. Do not delete the database, the <code>images\82</code> folder or the shared model to reset the test. A routine program update does not require repeating <code>seed_fieldmoist</code>.</p>
+<h2 id="section-49">14. Shut Down and Start Again Later</h2>
+<h3 id="section-50">14.1 Shut down normally</h3>
+<p>Wait until calculation finishes. In each service window, press <strong>Ctrl+C</strong>; confirm termination if Windows asks. You can then close the windows and browser.</p>
+<h3 id="section-51">14.2 Start again on a later day</h3>
+<p>On subsequent days, repeat only the two service-start sequences from section 11. Keep the same project directory and activate FieldMoist in each new Python command window. Do not recreate the environment, overwrite <code>.env</code>, reinstall all dependencies, re-extract all data or reset the database every day.</p>
+<p>Closing the browser alone does not stop backend calculations. Do not power off while files are being written.</p>
+<h3 id="section-52">14.3 What to back up</h3>
+<p>When no task is running and the backend is stopped, back up your own <code>backend\db.sqlite3</code>, <code>backend\media</code> and local configuration files. Store backups outside the project and do not upload them to the public repository.</p>
+<p>Restore the database together with the matching media directory; do not replace one without the other. Back up before updating the public code or compiled core. Ask the provider to confirm the matching directory when changing core versions.</p>
+<h2 id="section-53">15. Optional GEE Authentication and Online Processing</h2>
+<h3 id="section-54">15.1 What Online mode additionally requires</h3>
+<p>Online processing requires an Earth Engine-enabled Google Cloud project, an account with access to it, a network that can reach GEE and the ancillary files listed in section 7.5. Obtain the actual project identifier; do not use an email address or display name.</p>
+<h3 id="section-55">15.2 Enter your GEE project ID</h3>
+<p>In the activated FieldMoist prompt, from public, edit the backend <code>.env</code> and replace the value after <code>EARTH_ENGINE_PROJECT=</code> with your project ID. Save the file and restart the backend after configuration changes.</p>
+<h3 id="section-56">15.3 Complete first-time Earth Engine authentication</h3>
+<p>Run:</p>
+<pre><code class="lang-bat">python tools/authorize_earth_engine.py
+</code></pre>
+<p>This is the supported equivalent of the original <code>polygon_save/authorize.py</code> authentication script. Follow the browser and terminal instructions, choose the correct account and complete Google's authorization steps. Authentication screens may change. Do not disclose verification codes, full authorization URLs or credentials.</p>
+<p><strong>Please pay attention to your network environment. GEE may be unreachable from networks in mainland China.</strong> Authentication and satellite downloads require a connection that can reach Google Earth Engine. This is separate from AMap availability. The local <code>test</code> requires neither GEE authentication nor a GEE connection.</p>
+<h3 id="section-57">15.4 Prepare inputs and select the area</h3>
+<p>For service-account deployments, the configuration also supports a service-account email and JSON credential path. Beginners should have the provider configure these; keep credentials outside version control. Extract the online ancillary data listed in section 7.5. In Generate, choose <strong>Online</strong>, enter a region name and valid dates, then define the area:</p>
+<ul>
+<li><strong>SHP file</strong>: upload a ZIP containing matching <code>.shp</code>, <code>.shx</code>, <code>.dbf</code> and <code>.prj</code> files, or select the components together. The <code>.prj</code> is required to transform the boundary to WGS84.</li>
+<li><strong>Coordinates</strong>: enter the required WGS84 coordinate pairs in longitude, latitude order using the page's coordinate input.</li>
+</ul>
+<p>Both ways of defining the area work without a basemap. Online mode still needs GEE to fetch images; it does not become disconnected operation merely because the map background is hidden.</p>
+<p>For a custom <strong>Offline</strong> job, define the area by SHP or WGS84 coordinates and supply the local input files requested by the selected processing path. Files must cover the area and dates. The bundled <code>test</code> remains the simplest first validation because its inputs already match.</p>
+<h2 id="section-58">16. Troubleshooting</h2>
+<h3 id="section-59">16.1 Conda is not recognized</h3>
+<p>Open <strong>Anaconda Prompt</strong> from Start. A normal command window may not have Conda configured. If it is missing from Start, check the Miniconda installation.</p>
+<h3 id="section-60">16.2 Wrong working directory</h3>
+<p>Run <code>cd /d C:\FieldMoist\public</code>, then <code>dir environment.yml</code>. Correct extra extraction layers if the file is missing. PowerShell uses <code>cd</code> without <code>/d</code>.</p>
+<h3 id="section-61">16.3 Python or architecture mismatch</h3>
+<p>Activate FieldMoist and check Python 3.12 and AMD64. A <code>.pyd</code> compiled for one Python minor version or architecture cannot be fixed by renaming it.</p>
+<h3 id="section-62">16.4 Django is missing</h3>
+<p>If the prompt shows <code>(base)</code>, run <code>conda activate FieldMoist</code> in that window. Each new window needs activation. Do not install Django into base to work around this.</p>
+<h3 id="section-63">16.5 Private core missing or different</h3>
+<p>Check the <code>--from-dir</code> path and private <code>manifest.json</code>. Run the installer before algorithm-dependent backend commands. For a different release, update the public code too, stop the backend and use <code>--upgrade</code>. Do not edit hashes or rename binaries.</p>
+<h3 id="section-64">16.6 A core file is in use</h3>
+<p>Stop the backend and any known processing workers before upgrading. Loaded Windows <code>.pyd</code> files can be locked. Do not terminate unrelated programs indiscriminately.</p>
+<h3 id="section-65">16.7 GDAL or NumPy native-library errors</h3>
+<p>Use the supplied Conda environment and activate it. Avoid mixing pip GDAL with incompatible Conda libraries. Launching a Python executable directly without activation can omit required DLL paths. Report the environment details before replacing packages.</p>
+<h3 id="section-66">16.8 Data validation fails</h3>
+<p>Read the exact missing or invalid path. Check the project ID, repeated <code>82\82</code>, dates, extensions and archive nesting. Never create empty files as replacements.</p>
+<h3 id="section-67">16.9 No matching polygon in Explore</h3>
+<p>After placing data and running migrations, run <code>python backend/manage.py seed_fieldmoist</code>. Confirm the running backend uses the same database and media directory. Do not delete the database as a first response.</p>
+<h3 id="section-68">16.10 npm or Vite is missing</h3>
+<p>Reopen the command window after installing Node.js. Check <code>node --version</code> and <code>npm --version</code>. Run <code>npm ci --prefix frontend</code> from public before building or starting Vite. In PowerShell, <code>npm.cmd</code> can avoid a blocked <code>npm.ps1</code> script.</p>
+<h3 id="section-69">16.11 Build warns about large chunks</h3>
+<p>A warning followed by successful <code>built</code> output does not mean failure. Do not change dependency versions solely to remove this message.</p>
+<h3 id="section-70">16.12 Website does not open</h3>
+<p>Keep both service windows running. Use <a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a>, not HTTPS or a directly opened HTML source file. Check whether another process already occupies a required port.</p>
+<h3 id="section-71">16.13 API unavailable or CORS error</h3>
+<p>Open <a href="http://127.0.0.1:8000/api/health/">http://127.0.0.1:8000/api/health/</a>. If it fails, inspect the backend window. If it succeeds, check <code>VITE_API_BASE_URL</code> and backend <code>CORS_ALLOWED_ORIGINS</code>. Restart both services after changing configuration.</p>
+<h3 id="section-72">16.14 Blank basemap or missing PNG</h3>
+<p>For the background, check AMap credentials, allowed origins and connectivity. For a missing colored product, check local data, registration and the selected result. Existing jiefangzha products do not require GEE. A blank basemap and a missing product are different failures.</p>
+<h3 id="section-73">16.15 Test preset does not fill in</h3>
+<p>Select Offline first, enter exactly <code>test</code>, click outside and wait. Check the page error, backend availability, installed core and complete project 82 inputs.</p>
+<h3 id="section-74">16.16 Start button is unavailable or progress is quiet</h3>
+<p>Wait for the preset to finish loading and verify dates and active tasks. A completed test has a separate <strong>Run test again</strong> command. During a calculation, a quiet backend window is normal; it prints only stage summaries. Do not submit duplicate tasks.</p>
+<h3 id="section-75">16.17 Excel or model compatibility error</h3>
+<p>Keep the provider's workbook format and matching shared model. Supply the code/core version, model filename and error message to the provider. Do not substitute a similarly named file.</p>
+<h3 id="section-76">16.18 NASA request fails while offline</h3>
+<p>Only cached grid cells and date ranges are available offline. Existing cache responses are reused; missing coverage needs a network connection. Local raster display and the bundled test do not require a successful NASA download.</p>
+<h3 id="section-77">16.19 Asking for help</h3>
+<p>Report the manual section, exact command, Python version, task ID, data directory and the last 20-30 relevant error lines. Keep enough context to identify the failure. Do not send <code>.env</code> contents, map keys, passwords, Google codes or full authentication URLs. A filename list is usually enough to diagnose missing data initially.</p>
+<h2 id="section-78">17. First-Installation Checklist</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Windows x64 and sufficient disk space confirmed.</li>
+<li><input disabled="" type="checkbox"> Public directly contains environment.yml, backend, frontend and tools.</li>
+<li><input disabled="" type="checkbox"> Private directly contains LICENSE.txt and backend.</li>
+<li><input disabled="" type="checkbox"> Conda, Node.js and npm version checks succeed.</li>
+<li><input disabled="" type="checkbox"> FieldMoist is active, with Python 3.12 and AMD64.</li>
+<li><input disabled="" type="checkbox"> The core installer and 26-module smoke check succeed.</li>
+<li><input disabled="" type="checkbox"> Project 83 boundary, 24 TIFFs, 24 PNGs and NASA cache are in place.</li>
+<li><input disabled="" type="checkbox"> Project 82 boundary, 24 SMAP TIFFs, two moisture TIFFs, Excel, shared model and NASA cache are in place.</li>
+<li><input disabled="" type="checkbox"> Repeated 82/82 directories are correct; no stale test results were added to fresh inputs.</li>
+<li><input disabled="" type="checkbox"> Both .env files exist with correct local API settings and no accidental .txt suffix.</li>
+<li><input disabled="" type="checkbox"> Data validation, migrations, seed_fieldmoist and Django checks succeed.</li>
+<li><input disabled="" type="checkbox"> npm installation and build succeed.</li>
+<li><input disabled="" type="checkbox"> Both services run and API health is reachable.</li>
+<li><input disabled="" type="checkbox"> Explore displays jiefangzha and 24 daily colored products.</li>
+<li><input disabled="" type="checkbox"> The Offline test preset completes at 100 percent.</li>
+<li><input disabled="" type="checkbox"> Test output contains 24 TIFFs and 24 PNGs, with no required output report workbook.</li>
+<li><input disabled="" type="checkbox"> Subsequent startup needs only the two service windows.</li>
+</ul>
+<p>Online authentication and downloading are separate from these local example checks.</p>
+<h2 id="section-79">18. Operation Without an AMap Basemap</h2>
+<p>Explore renders product PNGs independently of AMap. If the SDK does not load or its tiles are unavailable, local products, project/date navigation and point selection still work. The selected circle is above the colored PNG. Keep the local frontend and backend running even when disconnected from the internet.</p>
+<p>The project does not bundle AMap tiles. Previously cached tiles may display, but uncached tiles and zoom levels are not guaranteed. SHP upload and WGS84 coordinate entry do not depend on a basemap in either processing mode.</p>
+<p>The release data packages are extracted into <code>public/backend/media</code>: <code>fieldmoist_test82_data.zip</code> contains project 82 inputs and NASA files, <code>fieldmoist_jiefangzha83_data.zip</code> contains project 83 display data and NASA cache, and <code>fieldmoist_online_data.zip</code> contains the optional online-processing files. Merge the package contents directly into media; do not add another folder named after the ZIP. Existing valid cache cells and date ranges are reused without downloading. Missing coverage needs internet. Online processing still requires GEE access and ancillary data. Already complete local inputs do not need to be extracted again for a routine code update.</p>
+</main></div>
+<footer>Example root: C:\FieldMoist. Data and accounts are supplied separately. Technical reference only; no license is granted.</footer></body></html>
