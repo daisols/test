@@ -1,0 +1,12 @@
+* text=auto
+*.py text eol=lf
+*.js text eol=lf
+*.vue text eol=lf
+*.md text eol=lf
+*.tif binary
+*.tiff binary
+*.png binary
+*.shp binary
+*.shx binary
+*.dbf binary
+*.pyd binary
