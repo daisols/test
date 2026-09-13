@@ -1,0 +1,41 @@
+# Python
+# Binaries are delivered through the private repository only.
+/backend/service/transform_tif/_native/
+/backend/service/transform_tif/CORE_LICENSE.txt
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Django runtime
+backend/db.sqlite3
+backend/staticfiles/
+backend/media/**
+!backend/media/README.md
+backend/media/**/*.pkl
+backend/media/**/*.xlsx
+backend/media/**/*.xls
+*.log
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+.npm-cache/
+
+# Local configuration and credentials
+.env
+*.local
+*.key
+*.pem
+service-account*.json
+credentials/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
